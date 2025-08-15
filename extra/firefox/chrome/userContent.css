@@ -1,0 +1,100 @@
+:root {
+  --shimmer-urlbar-rounding: 100px;
+}
+
+.activity-stream .outer-wrapper > main, .showPrivate {
+  background: transparent !important;
+  height: auto !important;
+  margin-top: auto !important;
+  margin-bottom: auto !important;
+  min-width: 250px !important;
+}
+
+.activity-stream .outer-wrapper > main {
+  padding: 2rem 0 0 0 !important;
+  mix-blend-mode: luminosity !important;
+}
+
+.showPrivate {
+  padding: 2rem !important;
+}
+
+.activity-stream .logo, .showPrivate .logo {
+  display: none !important;
+}
+
+.activity-stream .search-wrapper .logo-and-wordmark-wrapper .logo-and-wordmark {
+  display: none !important;
+}
+
+@media only screen and (max-width: 609px) {
+  .activity-stream .outer-wrapper > main, .showPrivate {
+    width: 95% !important;
+    margin-right: auto !important;
+    margin-left: auto !important;
+  }
+
+  .activity-stream .fake-textbox, .showPrivate .fake-textbox {
+    text-wrap: nowrap;
+    overflow: hidden;    
+  }
+
+  .activity-stream .outer-wrapper .search-inner-wrapper {
+    width: calc(100% - 2rem) !important;
+    margin-left: 1rem !important;
+    margin-right: 1rem !important;
+    & > .search-handoff-button {
+      width: 100% !important;
+    }
+  }
+}
+
+@media only screen and (max-width: 500px) {
+  .activity-stream .outer-wrapper .search-inner-wrapper {
+    width: calc(100% - 0.6rem) !important;
+    margin-left: 0.3rem !important;
+    margin-right: 0.3rem !important;
+  }
+}
+
+.activity-stream .search-handoff-button, .showPrivate .search-handoff-button {
+  border-radius: var(--shimmer-urlbar-rounding) !important;
+}
+.activity-stream .search-handoff-button {
+  mix-blend-mode: color-burn !important;
+}
+
+.activity-stream .search-inner-wrapper, .showPrivate .logo-and-wordmark {
+  background: transparent !important;
+}
+
+.activity-stream .search-inner-wrapper {
+  mix-blend-mode: color-burn !important;
+}
+
+.activity-stream .outer-wrapper, .showPrivate .outer-wrapper {
+  display: flex !important;
+  padding: 48px !important;
+}
+
+
+section[data-section-id="topsites"] {
+  margin-bottom: 0 !important;
+}
+
+.showPrivate .info {
+  border-radius: 30px !important;
+}
+
+#root > .no-search.no-recommended-stories main {
+  padding-top: 0 !important;
+}
+
+.activity-stream .wallpaper-attribution {
+  color: #fff !important;
+  filter: drop-shadow(0px 0px 2px rgba(0, 0, 0, 0.5)) !important;
+  position: absolute !important;
+  left: 0 !important;
+  top: 0 !important;
+  margin-top: 25px !important;
+}

@@ -1,0 +1,6 @@
+require("core.error")
+require("core.theme")
+require("core.notification")
+require("core.tag")
+require("core.client")
+require("core.keybind")
