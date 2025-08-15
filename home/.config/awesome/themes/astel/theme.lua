@@ -12,7 +12,7 @@ theme.font = "Geist Medium 9"
 
 theme.icons = {
 	power = icons_path .. "power.svg",
-	refresh = icons_path .. "refresh-ccw.svg",
+	refresh = icons_path .. "refresh-cw.svg",
 	log_out = icons_path .. "log-out.svg",
 	cross = icons_path .. "x.svg",
 	menu = icons_path .. "menu.svg",

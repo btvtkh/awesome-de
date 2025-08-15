@@ -79,14 +79,14 @@ local function new(args)
 		self:set_fg(wp.fg_normal)
 	end
 
-	wp.on_button_press = function(self, _, _, _)
+	wp.on_button_press = function(self)
 		wp.is_pressed = true
 		self:emit_signal("property::is-pressed", wp.is_pressed)
 		self:set_bg(wp.bg_active)
 		self:set_fg(wp.fg_active)
 	end
 
-	wp.on_button_release = function(self, _, _, _)
+	wp.on_button_release = function(self)
 		wp.is_pressed = false
 		self:emit_signal("property::is-pressed", wp.is_pressed)
 		if wp.is_hovered then

@@ -24,20 +24,12 @@ local function update_items(self)
 	local theme = wp.theme
 	local items_layout = self.widget:get_children_by_id("items-layout")[1]
 	for i, item in ipairs(items_layout.children) do
-		local submenu_icon = item:get_children_by_id("submenu_icon")[i]
-
 		if wp.select_index and i == wp.select_index then
 			item:set_bg(theme.item_hover_bg)
 			item:set_fg(theme.item_hover_fg)
-			if submenu_icon then
-				submenu_icon:set_color(theme.item_hover_fg)
-			end
 		else
 			item:set_bg(theme.item_bg)
 			item:set_fg(theme.item_fg)
-			if submenu_icon then
-				submenu_icon:set_color(theme.item_hover_fg)
-			end
 		end
 	end
 end
@@ -120,7 +112,7 @@ local function entry(self, index, args)
 	local item_content = ret:get_children_by_id("item-content")[1]
 
 	if args.items then
-		local submenu = wibox.widget {
+		local item_widget = wibox.widget {
 			layout = wibox.layout.fixed.horizontal,
 			fill_space = true,
 			{
@@ -141,15 +133,15 @@ local function entry(self, index, args)
 			}
 		}
 
-		local submenu_icon = submenu:get_children_by_id("submenu-icon")[1]
+		local submenu_icon = item_widget:get_children_by_id("submenu-icon")[1]
 
-		rp.on_submenu_fg = function(_, fg)
+		rp.on_entry_fg = function(_, fg)
 			submenu_icon:set_color(fg)
 		end
 
-		ret:connect_signal("property::fg", rp.on_submenu_fg)
+		ret:connect_signal("property::fg", rp.on_entry_fg)
 
-		item_content:set_widget(submenu)
+		item_content:set_widget(item_widget)
 	else
 		item_content:set_widget({
 			widget = wibox.widget.textbox,
@@ -327,7 +319,7 @@ function menu.new(args, parent)
 			item_width = dpi(150),
 			item_height = dpi(25),
 			item_shape = shape.rrect(dpi(6)),
-			item_margins = { left = dpi(7), right = dpi(7) },
+			item_margins = { left = dpi(8), right = dpi(4) },
 			item_spacing = dpi(2),
 			item_font = beautiful.font
 		}

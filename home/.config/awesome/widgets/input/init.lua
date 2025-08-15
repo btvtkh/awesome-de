@@ -66,9 +66,8 @@ local function markup(args)
 	local size = args.font_size and " size='" .. pttostr(args.font_size) .. "'" or ""
 	local style = args.font_style and " style='" .. args.font_style .. "'" or ""
 	local weight = args.font_weight and " weight='" .. args.font_weight .. "'" or ""
-	local font_attrs = font .. size .. style .. weight
 
-	return "<span" .. font_attrs .. ">"
+	return "<span" .. font .. size .. style .. weight .. ">"
 		.. (focused and
 				(text_start
 				.. "<span background='" .. cursor_bg .. "' foreground='" .. cursor_fg .. "'>" .. cursor_char .. "</span>"
