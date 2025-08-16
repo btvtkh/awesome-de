@@ -14,9 +14,6 @@ local menu = {}
 
 local function create_desktop_menu()
 	return widgets.menu {
-		theme = {
-			item_font = beautiful.font_h0
-		},
 		items = {
 			{
 				label = "Awesome",
@@ -134,9 +131,6 @@ local function create_client_menu(c)
 	end
 
 	return widgets.menu {
-		theme = {
-			item_font = beautiful.font_h0
-		},
 		items = {
 			{
 				label = "Move to tag",

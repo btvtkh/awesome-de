@@ -17,7 +17,7 @@ function M.markup(text, args)
 	local font = args.font_name and " font='" .. args.font_name .. "'" or ""
 	local size = args.font_size and " size='" .. pttostr(args.font_size) .. "'" or ""
 	local style = args.font_style and " style='" .. args.font_style .. "'" or ""
-	local weight = args.font_weight and " weight='" .. args.font_weight .. "'" or ""
+	local weight = args.font_weight and " weight='" .. tostring(args.font_weight) .. "'" or ""
 	local underline = args.underline and " underline='" .. args.underline .. "'" or ""
 	local overline = args.overline and " overline='" .. args.overline .. "'" or ""
 	local strikethrough = args.strikethrough and " strikethrough='" .. tostring(args.strikethrough) .. "'" or ""

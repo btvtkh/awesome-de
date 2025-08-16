@@ -3,6 +3,7 @@ local wibox = require("wibox")
 local beautiful = require("beautiful")
 local gtable = require("gears.table")
 local shape = require("lib.shape")
+local wlabel = require("widgets.label")
 local wicon = require("widgets.icon")
 local icons = beautiful.icons
 local capi = { mouse = mouse }
@@ -116,9 +117,13 @@ local function entry(self, index, args)
 			layout = wibox.layout.fixed.horizontal,
 			fill_space = true,
 			{
-				widget = wibox.widget.textbox,
-				font = theme.item_font,
-				markup = args.label
+				widget = wlabel,
+				valign = "center",
+				font_name = theme.item_font_name,
+				font_style = theme.item_font_style,
+				font_weight = theme.item_font_weight,
+				font_size = theme.item_font_size,
+				label = args.label
 			},
 			{
 				widget = wibox.container.place,
@@ -128,7 +133,7 @@ local function entry(self, index, args)
 					id = "submenu-icon",
 					widget = wicon,
 					size = dpi(14),
-					icon = icons.chevron_right
+					icon = theme.submenu_icon
 				}
 			}
 		}
@@ -144,9 +149,13 @@ local function entry(self, index, args)
 		item_content:set_widget(item_widget)
 	else
 		item_content:set_widget({
-			widget = wibox.widget.textbox,
-			font = theme.item_font,
-			markup = args.label
+			widget = wlabel,
+			valign = "center",
+			font_name = theme.item_font_name,
+			font_style = theme.item_font_style,
+			font_weight = theme.item_font_weight,
+			font_size = theme.item_font_size,
+			label = args.label
 		})
 	end
 
@@ -321,7 +330,9 @@ function menu.new(args, parent)
 			item_shape = shape.rrect(dpi(6)),
 			item_margins = { left = dpi(8), right = dpi(4) },
 			item_spacing = dpi(2),
-			item_font = beautiful.font
+			item_font_weight = 500,
+			item_font_size = 9,
+			submenu_icon = beautiful.menu_submenu,
 		}
 	})
 

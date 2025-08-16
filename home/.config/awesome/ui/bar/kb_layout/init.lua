@@ -31,9 +31,10 @@ return function()
 	local kb_layout_textbox = ret:get_children_by_id("kb-layout-widget")[1].widget
 
 	wp.on_kb_text = function(w, text)
-		w:set_markup(
-			markup(capitalize(text:gsub("%s+", "")), { font_size = 11 })
-		)
+		w:set_markup(markup(
+			capitalize(text:gsub("%s+", "")),
+			{ font_weight = 500, font_size = 11 }
+		))
 	end
 
 	kb_layout_textbox:connect_signal("property::text", wp.on_kb_text)

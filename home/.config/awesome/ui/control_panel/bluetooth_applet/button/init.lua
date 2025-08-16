@@ -60,6 +60,7 @@ return function()
 									{
 										id = "state-label",
 										widget = widgets.label,
+										font_weight = 500,
 										font_size = 9,
 										alpha = 70,
 									}

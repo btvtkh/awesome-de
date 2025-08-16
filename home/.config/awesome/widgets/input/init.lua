@@ -65,7 +65,7 @@ local function markup(args)
 	local font = args.font_name and " font='" .. args.font_name .. "'" or ""
 	local size = args.font_size and " size='" .. pttostr(args.font_size) .. "'" or ""
 	local style = args.font_style and " style='" .. args.font_style .. "'" or ""
-	local weight = args.font_weight and " weight='" .. args.font_weight .. "'" or ""
+	local weight = args.font_weight and " weight='" .. tostring(args.font_weight) .. "'" or ""
 
 	return "<span" .. font .. size .. style .. weight .. ">"
 		.. (focused and

@@ -8,7 +8,9 @@ local icons_path = theme_path .. "icons/"
 
 local theme = {}
 
-theme.font = "Geist Medium 9"
+theme.font_name = "Geist"
+theme.font_size = 9
+theme.font = theme.font_name.. tostring(theme.font_size)
 
 theme.icons = {
 	power = icons_path .. "power.svg",

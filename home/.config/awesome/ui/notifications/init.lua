@@ -127,6 +127,7 @@ local function create_notification_popup(self, n)
 									{
 										widget = widgets.label,
 										fg = beautiful.fg_alt,
+										font_weight = 500,
 										font_size = 9,
 										label = os.date("%H:%M")
 									},
@@ -200,6 +201,7 @@ local function create_notification_popup(self, n)
 										height = dpi(70),
 										{
 											widget = widgets.label,
+											font_weight = 500,
 											font_size = 10,
 											label = n.text or n.massage,
 										}
