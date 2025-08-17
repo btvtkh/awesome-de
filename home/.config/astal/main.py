@@ -8,13 +8,15 @@ gi.require_version("AstalIO", "0.1")
 gi.require_version("Astal", "3.0")
 gi.require_version("AstalHyprland", "0.1")
 gi.require_version("AstalNotifd", "0.1")
+gi.require_version("AstalApps", "0.1")
 
 import sys
 import subprocess
 from pathlib import Path
-from gi.repository import AstalIO, Astal, AstalNotifd as Notifd
+from gi.repository import Gdk, AstalIO, Astal, AstalNotifd as Notifd
 from ui.bar import Bar
 from ui.notifications import Notifications
+from ui.launcher import Launcher
 
 scss = str(Path(__file__).parent.resolve() / "style.scss")
 css = "/tmp/style.css"
@@ -31,6 +33,7 @@ class App(Astal.Application):
         for mon in self.get_monitors():
             self.add_window(Bar(mon))
             self.add_window(Notifications(mon))
+            self.add_window(Launcher(mon))
 
 instance_name = "astal-py"
 app = App(instance_name = instance_name)

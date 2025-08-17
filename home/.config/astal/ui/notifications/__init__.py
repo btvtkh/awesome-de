@@ -89,6 +89,8 @@ class Notifications(Astal.Window):
             anchor = Astal.WindowAnchor.TOP
                 | Astal.WindowAnchor.RIGHT,
             exclusivity = Astal.Exclusivity.EXCLUSIVE,
+            namespace = "Astal-Notifications",
+            name = "Notifications"
         )
 
         self.get_style_context().add_class("notifications-window")

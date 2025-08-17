@@ -23,6 +23,7 @@ class Bar(Astal.Window):
                 | Astal.WindowAnchor.LEFT
                 | Astal.WindowAnchor.RIGHT,
             exclusivity = Astal.Exclusivity.EXCLUSIVE,
+            namespace = "Astal-Bar",
             name = "Bar"
         )
 
