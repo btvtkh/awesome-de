@@ -1,0 +1,17 @@
+@use "../theme" as *;
+@use "workspaces";
+@use "clients";
+
+.bar-window {
+  .bar-box {
+    color: $fg;
+    background-color: $bg;
+    border-top: 1px solid $bg-urg;
+    min-height: 45px;
+
+    label {
+      font-weight: 500;
+      font-size: 11pt;
+    }
+  }
+}

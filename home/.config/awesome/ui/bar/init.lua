@@ -36,10 +36,10 @@ function bar.Secondary(s)
 						layout = wibox.layout.fixed.horizontal,
 						{
 							widget = wibox.container.margin,
-							margins = dpi(7),
+							margins = dpi(6),
 							{
 								layout = wibox.layout.fixed.horizontal,
-								spacing = dpi(5),
+								spacing = dpi(3),
 								Tag_list(s),
 								Client_list(s)
 							}
