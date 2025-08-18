@@ -7,6 +7,7 @@ local textbox = require("wibox.widget.textbox")
 local gtable = require("gears.table")
 local gstring = require("gears.string")
 local gcolor = require("gears.color")
+local beautiful = require("beautiful")
 
 local input = {}
 
@@ -257,11 +258,14 @@ local function new(args)
 	args.obscure = args.obscure or false
 	args.placeholder = args.placeholder or ""
 	args.obscure_char = args.obscure_char or "*"
-	args.cursor_bg = args.cursor_bg or "#ffffff"
-	args.cursor_fg = args.cursor_fg or "#000000"
-	args.placeholder_fg = args.placeholder_fg or "#373737"
-	args.unfocused_fg = args.unfocused_fg or "#373737"
+	args.cursor_bg = args.cursor_bg or beautiful.fg
+	args.cursor_fg = args.cursor_fg or beautiful.bg
+	args.placeholder_fg = args.placeholder_fg or beautiful.fg_alt
+	args.unfocused_fg = args.unfocused_fg or beautiful.bg_urg
 	args.highlighter = args.highlighter
+	args.font_name = args.font_name or beautiful.font_name
+	args.font_size = args.font_size or beautiful.font_size
+	args.font_weight = args.font_weight or beautiful.font_weight
 
 	local ret = textbox()
 	gtable.crush(ret._private, args)

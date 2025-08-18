@@ -28,7 +28,6 @@ local function wday_widget(index)
 			forced_width = dpi(25),
 			align = "center",
 			fg = index >= 6 and beautiful.red or beautiful.fg,
-			font_weight = 500,
 			font_size = 9,
 			label = os.date("%a", os.time({ year = 1, month = 1, day = index }))
 		}
@@ -50,7 +49,6 @@ local function day_widget(day, is_current, is_another_month)
 			{
 				widget = widgets.label,
 				align = "center",
-				font_weight = 500,
 				font_size = 12,
 				label = day
 			}

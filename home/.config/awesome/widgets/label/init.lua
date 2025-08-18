@@ -1,6 +1,7 @@
 local textbox = require("wibox.widget.textbox")
 local gtable = require("gears.table")
 local gstring = require("gears.string")
+local beautiful = require("beautiful")
 
 local label = {}
 
@@ -65,6 +66,10 @@ end
 
 local function new(args)
 	args = args or {}
+
+	args.font_name = args.font_name or beautiful.font_name
+	args.font_size = args.font_size or beautiful.font_size
+	args.font_weight = args.font_weight or beautiful.font_weight
 
 	local ret = textbox()
 	gtable.crush(ret._private, args)

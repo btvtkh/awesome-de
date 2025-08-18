@@ -69,8 +69,7 @@ local function create_player_widget(self, name, player)
 									widget = widgets.label,
 									forced_width = dpi(220),
 									forced_height = dpi(25),
-									font_weight = 500,
-									font_size = 12,
+									font_size = 12
 								}
 							},
 							{
@@ -80,7 +79,6 @@ local function create_player_widget(self, name, player)
 									widget = widgets.label,
 									forced_width = dpi(200),
 									forced_height = dpi(20),
-									font_weight = 500,
 									font_size = 10,
 									alpha = 70
 								}
@@ -100,7 +98,6 @@ local function create_player_widget(self, name, player)
 										{
 											id = "position-label",
 											widget = widgets.label,
-											font_weight = 500,
 											font_size = 9
 										}
 									}
@@ -181,7 +178,6 @@ local function create_player_widget(self, name, player)
 										{
 											id = "length-label",
 											widget = widgets.label,
-											font_weight = 500,
 											font_size = 9
 										}
 									}
@@ -457,7 +453,6 @@ local function new()
 							forced_height = dpi(100),
 							fg = beautiful.fg_alt,
 							align = "center",
-							font_weight = 500,
 							font_size = 17,
 							label = "Nothing playing"
 						}
@@ -579,7 +574,6 @@ local function new()
 						forced_height = dpi(100),
 						fg = beautiful.fg_alt,
 						align = "center",
-						font_weight = 500,
 						font_size = 17,
 						label = "Nothing playing"
 					})

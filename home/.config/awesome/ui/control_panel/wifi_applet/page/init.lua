@@ -39,14 +39,12 @@ local function create_ap_widget(self, ap)
 								id = "name-label",
 								widget = widgets.label,
 								valign = "center",
-								font_weight = 500,
 								font_size = 12
 							},
 							{
 								id = "description-label",
 								widget = widgets.label,
 								valign = "center",
-								font_weight = 500,
 								font_size = 9,
 								alpha = 70
 							}
@@ -58,7 +56,6 @@ local function create_ap_widget(self, ap)
 					id = "strength-label",
 					widget = widgets.label,
 					align = "center",
-					font_weight = 500,
 					font_size = 12
 				}
 			}
@@ -393,11 +390,7 @@ return function()
 										widget = widgets.input,
 										placeholder = "Password",
 										obscure_char = "●",
-										cursor_bg = beautiful.fg,
-										cursor_fg = beautiful.bg,
-										placeholder_fg = beautiful.fg_alt,
 										obscure = true,
-										font_weight = 500,
 										font_size = 12
 									}
 								},
@@ -429,7 +422,6 @@ return function()
 								{
 									widget = widgets.label,
 									align = "center",
-									font_weight = 500,
 									font_size = 12,
 									label = "Auto connect"
 								},
@@ -514,7 +506,6 @@ return function()
 				forced_height = dpi(400),
 				fg = beautiful.fg_alt,
 				align = "center",
-				font_weight = 500,
 				font_size = 17,
 				label = "Wifi disabled"
 			})

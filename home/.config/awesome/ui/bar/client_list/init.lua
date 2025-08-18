@@ -43,7 +43,6 @@ return function(s)
 							id = "c-label",
 							widget = widgets.label,
 							align = "center",
-							font_weight = 500,
 							font_size = 11
 						}
 					}

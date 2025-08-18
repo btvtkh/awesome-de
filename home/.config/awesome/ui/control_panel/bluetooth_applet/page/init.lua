@@ -32,14 +32,12 @@ local function create_device_widget(path, device)
 								id = "name-label",
 								widget = widgets.label,
 								valign = "center",
-								font_weight = 500,
 								font_size = 12
 							},
 							{
 								id = "description-label",
 								widget = widgets.label,
 								valign = "center",
-								font_weight = 500,
 								font_size = 9,
 								alpha = 70
 							}
@@ -54,7 +52,6 @@ local function create_device_widget(path, device)
 						id = "percentage-label",
 						widget = widgets.label,
 						align = "center",
-						font_weight = 500,
 						font_size = 12
 					}
 				}
@@ -309,7 +306,6 @@ return function()
 				forced_height = dpi(400),
 				fg = beautiful.fg_alt,
 				align = "center",
-				font_weight = 500,
 				font_size = 17,
 				label = "Bluetooth disabled"
 			})

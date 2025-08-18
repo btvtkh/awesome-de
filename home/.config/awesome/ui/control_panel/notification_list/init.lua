@@ -104,7 +104,6 @@ local function create_notification_widget(n)
 									{
 										widget = widgets.label,
 										fg = beautiful.fg_alt,
-										font_weight = 500,
 										font_size = 9,
 										label = os.date("%H:%M")
 									},
@@ -178,7 +177,6 @@ local function create_notification_widget(n)
 										height = dpi(70),
 										{
 											widget = widgets.label,
-											font_weight = 500,
 											font_size = 10,
 											label = n.text or n.massage,
 										}
@@ -232,7 +230,6 @@ function notification_list:clear_notifications()
 		forced_height = dpi(560),
 		fg = beautiful.fg_alt,
 		align = "center",
-		font_weight = 500,
 		font_size = 17,
 		label = "No notifications",
 	})
@@ -404,7 +401,6 @@ return function()
 				forced_height = dpi(560),
 				fg = beautiful.fg_alt,
 				align = "center",
-				font_weight = 500,
 				font_size = 17,
 				label = "No notifications",
 			})
@@ -440,7 +436,6 @@ return function()
 		forced_height = dpi(560),
 		fg = beautiful.fg_alt,
 		align = "center",
-		font_weight = 500,
 		font_size = 17,
 		label = "No notifications",
 	})

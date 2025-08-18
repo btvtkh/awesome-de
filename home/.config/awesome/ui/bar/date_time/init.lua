@@ -33,7 +33,6 @@ return function()
 				{
 					id = "date-label",
 					widget = widgets.label,
-					font_weight = 500,
 					font_size = 11
 				},
 				{
@@ -50,7 +49,6 @@ return function()
 				{
 					id = "time-label",
 					widget = widgets.label,
-					font_weight = 500,
 					font_size = 11
 				}
 			}

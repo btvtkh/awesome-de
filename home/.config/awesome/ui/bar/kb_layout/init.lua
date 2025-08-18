@@ -33,7 +33,7 @@ return function()
 	wp.on_kb_text = function(w, text)
 		w:set_markup(markup(
 			capitalize(text:gsub("%s+", "")),
-			{ font_weight = 500, font_size = 11 }
+			{ font_weight = beautiful.font_weight, font_size = 11 }
 		))
 	end
 

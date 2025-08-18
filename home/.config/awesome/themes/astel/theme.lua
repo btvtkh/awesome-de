@@ -9,6 +9,9 @@ local icons_path = theme_path .. "icons/"
 local theme = {}
 
 theme.font = "Geist 9"
+theme.font_name = "Geist"
+theme.font_size = 9
+theme.font_weight = 500
 
 theme.icons = {
 	power = icons_path .. "power.svg",

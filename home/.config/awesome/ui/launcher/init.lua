@@ -102,7 +102,6 @@ local function App_button(app, index, self)
 						height = dpi(25),
 						{
 							widget = widgets.label,
-							font_weight = 500,
 							font_size = 9,
 							alpha = 70,
 							label = app:get_description()
@@ -153,7 +152,6 @@ function launcher:update_entries()
 				widget = widgets.label,
 				forced_height = dpi(60) * wp.rows + dpi(3) * (wp.rows - 1),
 				align = "center",
-				font_weight = 500,
 				font_size = 17,
 				fg = beautiful.fg_alt,
 				label = "No match found"
@@ -301,11 +299,6 @@ local function new()
 											id = "search-input",
 											widget = widgets.input,
 											placeholder = "Search...",
-											cursor_bg = beautiful.fg,
-											cursor_fg = beautiful.bg,
-											placeholder_fg = beautiful.fg_alt,
-											unfocused_fg = beautiful.bg_urg,
-											font_weight = 500,
 											font_size = 12
 										}
 									}

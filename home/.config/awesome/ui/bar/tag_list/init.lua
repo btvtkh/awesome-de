@@ -58,7 +58,6 @@ return function(s)
 							widget = widgets.label,
 							halign = "center",
 							valign = "center",
-							font_weight = 500,
 							font_size = 11
 						}
 					}

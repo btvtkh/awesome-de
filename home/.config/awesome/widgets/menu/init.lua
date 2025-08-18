@@ -330,9 +330,9 @@ function menu.new(args, parent)
 			item_shape = shape.rrect(dpi(6)),
 			item_margins = { left = dpi(8), right = dpi(4) },
 			item_spacing = dpi(2),
-			item_font_weight = 500,
+			item_font_weight = beautiful.font_weight,
 			item_font_size = 9,
-			submenu_icon = beautiful.menu_submenu,
+			submenu_icon = beautiful.menu_submenu
 		}
 	})
 
