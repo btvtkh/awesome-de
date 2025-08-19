@@ -1,6 +1,7 @@
 @use "../theme" as *;
 @use "workspaces";
 @use "clients";
+@use "date_time";
 
 .bar-window {
   .bar-box {

@@ -1,15 +1,17 @@
 from gi.repository import Gtk, Astal
 from .workspaces import WorkspacesWidget
 from .clients import ClientsWidget
+from .date_time import DateTimeWidget
 
 class Bar(Astal.Window):
     def __init__(self, monitor):
 
-        left_box = Gtk.Box()
+        left_box = Gtk.Box(hexpand = True)
         left_box.add(WorkspacesWidget())
         left_box.add(ClientsWidget())
 
-        right_box = Gtk.Box()
+        right_box = Gtk.Box(halign = Gtk.Align.END)
+        right_box.add(DateTimeWidget())
 
         main_box = Gtk.Box()
         main_box.get_style_context().add_class("bar-box")
