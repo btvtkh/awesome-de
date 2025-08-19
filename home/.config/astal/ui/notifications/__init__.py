@@ -1,4 +1,4 @@
-from gi.repository import Gtk, Astal, AstalIO, AstalNotifd as Notifd
+from gi.repository import GLib, Gtk, Astal, AstalNotifd as Notifd
 from .notification import NotificationWidget
 
 class NotificationPopup(Gtk.Box):
@@ -17,19 +17,23 @@ class NotificationPopup(Gtk.Box):
                 self.destroy()
                 if window.get_visible() and not window.get_child().get_children():
                     window.hide()
+                return False
 
             def animate_outer():
                 self._outer.set_reveal_child(False)
-                AstalIO.Time.timeout(
-                    self._outer.get_transition_duration(),
-                    close
+                GLib.timeout_add(
+                    priority = GLib.PRIORITY_DEFAULT,
+                    interval = self._outer.get_transition_duration(),
+                    function = close
                 )
+                return False
 
             def animate_inner():
                 self._inner.set_reveal_child(False)
-                AstalIO.Time.timeout(
-                    self._inner.get_transition_duration(),
-                    animate_outer
+                GLib.timeout_add(
+                    priority = GLib.PRIORITY_DEFAULT,
+                    interval = self._inner.get_transition_duration(),
+                    function = animate_outer
                 )
 
             animate_inner()
@@ -48,8 +52,6 @@ class NotificationPopup(Gtk.Box):
             n.disconnect(on_resolved_id)
 
         self.connect("destroy", on_destroy)
-
-        #AstalIO.Time.timeout(10000, n.dismiss)
 
 class Notifications(Astal.Window):
     def __init__(self, monitor):
@@ -71,13 +73,15 @@ class Notifications(Astal.Window):
 
             def animate_inner():
                 popup._inner.set_reveal_child(True)
+                return False
 
             def animate_outer():
                 open()
                 popup._outer.set_reveal_child(True)
-                AstalIO.Time.timeout(
-                    popup._outer.get_transition_duration(),
-                    animate_inner
+                GLib.timeout_add(
+                    priority = GLib.PRIORITY_DEFAULT,
+                    interval = popup._outer.get_transition_duration(),
+                    function = animate_inner
                 )
 
             animate_outer()

@@ -13,7 +13,7 @@ gi.require_version("AstalApps", "0.1")
 import sys
 import subprocess
 from pathlib import Path
-from gi.repository import Gdk, AstalIO, Astal, AstalNotifd as Notifd
+from gi.repository import AstalIO, Astal, AstalNotifd as Notifd
 from ui.bar import Bar
 from ui.notifications import Notifications
 from ui.launcher import Launcher
@@ -42,7 +42,7 @@ if __name__ == "__main__":
     try:
         app.acquire_socket()
         app.run(None)
-    except Exception as e:
+    except Exception:
         print(
             AstalIO.send_request(
                 instance_name,
