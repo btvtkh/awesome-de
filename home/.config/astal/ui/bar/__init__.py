@@ -6,14 +6,20 @@ from .date_time import DateTimeWidget
 class Bar(Astal.Window):
     def __init__(self, monitor):
 
-        left_box = Gtk.Box(hexpand = True)
+        left_box = Gtk.Box(
+            hexpand = True,
+            visible = True
+        )
         left_box.add(WorkspacesWidget())
         left_box.add(ClientsWidget())
 
-        right_box = Gtk.Box(halign = Gtk.Align.END)
+        right_box = Gtk.Box(
+            halign = Gtk.Align.END,
+            visible = True
+        )
         right_box.add(DateTimeWidget())
 
-        main_box = Gtk.Box()
+        main_box = Gtk.Box(visible = True)
         main_box.get_style_context().add_class("bar-box")
         main_box.add(left_box)
         main_box.add(right_box)
@@ -26,9 +32,9 @@ class Bar(Astal.Window):
                 | Astal.WindowAnchor.RIGHT,
             exclusivity = Astal.Exclusivity.EXCLUSIVE,
             namespace = "Astal-Bar",
-            name = "Bar"
+            name = "Bar",
+            visible = True
         )
 
         self.get_style_context().add_class("bar-window")
         self.add(main_box)
-        self.show_all()

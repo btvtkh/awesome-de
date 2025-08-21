@@ -54,7 +54,7 @@ class NotificationPopup(Gtk.Box):
         self.connect("destroy", on_destroy)
 
 class Notifications(Astal.Window):
-    def __init__(self, monitor):
+    def __init__(self):
 
         notifications = Notifd.get_default()
 
@@ -67,17 +67,18 @@ class Notifications(Astal.Window):
             n = notifications.get_notification(id)
             popup = NotificationPopup(self, n)
 
-            def open():
-                notifications_box.pack_end(popup, False, False, 0)
-                self.show_all()
-
             def animate_inner():
                 popup._inner.set_reveal_child(True)
                 return False
 
             def animate_outer():
-                open()
+                if not self.get_visible():
+                    self.show()
+
+                notifications_box.pack_end(popup, False, False, 0)
+                popup.show_all()
                 popup._outer.set_reveal_child(True)
+
                 GLib.timeout_add(
                     priority = GLib.PRIORITY_DEFAULT,
                     interval = popup._outer.get_transition_duration(),
@@ -87,8 +88,6 @@ class Notifications(Astal.Window):
             animate_outer()
 
         super().__init__(
-            visible = False,
-            gdkmonitor = monitor,
             layer = Astal.Layer.TOP,
             anchor = Astal.WindowAnchor.TOP
                 | Astal.WindowAnchor.RIGHT,
@@ -101,3 +100,13 @@ class Notifications(Astal.Window):
         self.add(notifications_box)
 
         notifications.connect("notified", on_notified)
+
+        ns = notifications.get_notifications()
+        ns.sort(key = lambda x: x.get_id())
+        for n in ns:
+            popup = NotificationPopup(self, n)
+            notifications_box.pack_end(popup, False, False, 0)
+            popup._inner.set_reveal_child(True)
+            popup._outer.set_reveal_child(True)
+
+        self.show_all()

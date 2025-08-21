@@ -49,7 +49,7 @@ class AppButton(Gtk.Button):
         self.connect("destroy", on_destroy)
 
 class Launcher(Astal.Window):
-    def __init__(self, monitor):
+    def __init__(self):
 
         apps = AstalApps.Apps()
 
@@ -74,7 +74,9 @@ class Launcher(Astal.Window):
 
         apps_scroll = Gtk.ScrolledWindow(
             width_request = 400,
-            height_request = 450
+            height_request = 450,
+            hexpand = False,
+            vexpand = False
         )
         apps_scroll.get_style_context().add_class("apps-scroll")
 
@@ -132,10 +134,26 @@ class Launcher(Astal.Window):
                 apps_list = apps.get_list()
                 apps_list.sort(key = lambda x: x.get_name())
 
-            for app in apps_list:
-                apps_box.add(AppButton(self, app))
+            if len(apps_list) > 0:
+                for app in apps_list:
+                    apps_box.add(AppButton(self, app))
+            else:
+                no_match_box = Gtk.Box(
+                    halign = Gtk.Align.CENTER,
+                    valign = Gtk.Align.CENTER,
+                    hexpand = True,
+                    vexpand = True
+                )
 
-            self.show_all()
+                no_match_label = Gtk.Label(
+                    label = "No match found"
+                )
+                no_match_label.get_style_context().add_class("no-match-label")
+
+                no_match_box.add(no_match_label)
+                apps_box.add(no_match_box)
+
+            apps_box.show_all()
 
         def on_search_activate(*_):
             if apps_box.get_children():
@@ -143,7 +161,6 @@ class Launcher(Astal.Window):
                     apps_box.get_children()[0].activate()
 
         super().__init__(
-            gdkmonitor = monitor,
             layer = Astal.Layer.TOP,
             anchor = Astal.WindowAnchor.BOTTOM
                 | Astal.WindowAnchor.TOP

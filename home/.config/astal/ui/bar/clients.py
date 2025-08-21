@@ -25,7 +25,6 @@ class ClientButton(Gtk.Button):
                 hyprland.dispatch("alterzorder", f"top, {c.get_address()}")
 
         super().__init__(
-            visible = True,
             child = Gtk.Label(
                 visible = True,
                 max_width_chars = 15,
@@ -62,7 +61,7 @@ class ClientsWidget(Gtk.Box):
             for c in hyprland.get_clients():
                 self.add(ClientButton(c))
 
-        super().__init__()
+        super().__init__(visible = True)
         hyprland.connect("notify::clients", on_clients)
         self.get_style_context().add_class("clients-box")
 

@@ -13,7 +13,7 @@ gi.require_version("AstalApps", "0.1")
 import sys
 import subprocess
 from pathlib import Path
-from gi.repository import AstalIO, Astal, AstalNotifd as Notifd
+from gi.repository import AstalIO, Astal
 from ui.bar import Bar
 from ui.notifications import Notifications
 from ui.launcher import Launcher
@@ -27,13 +27,11 @@ class App(Astal.Application):
         subprocess.run(["sass", scss, css])
         self.apply_css(css, True)
 
-        for n in Notifd.get_default().get_notifications():
-            n.dismiss()
-
         for mon in self.get_monitors():
             self.add_window(Bar(mon))
-            self.add_window(Notifications(mon))
-            self.add_window(Launcher(mon))
+
+        self.add_window(Notifications())
+        self.add_window(Launcher())
 
 instance_name = "astal-py"
 app = App(instance_name = instance_name)

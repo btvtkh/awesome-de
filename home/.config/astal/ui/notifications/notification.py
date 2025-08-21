@@ -14,10 +14,8 @@ class ActionButton(Gtk.Button):
             n.invoke(action.id)
 
         super().__init__(
-            visible = True,
             hexpand = True,
             child = Gtk.Label(
-                visible = True,
                 hexpand = True,
                 halign = Gtk.Align.CENTER,
                 ellipsize = Pango.EllipsizeMode.END,
@@ -57,7 +55,6 @@ class NotificationWidget(Gtk.Box):
 
         close_button = Gtk.Button(
             child = Gtk.Image(
-                visible = True,
                 icon_size = Gtk.IconSize.BUTTON,
                 icon_name = "window-close-symbolic"
             )

@@ -49,7 +49,7 @@ class WorkspacesWidget(Gtk.Box):
                 if not (ws.get_id() >= -99 and ws.get_id() <= -2):
                     self.add(WorkspaceButton(ws))
 
-        super().__init__()
+        super().__init__(visible = True)
         hyprland.connect("notify::workspaces", on_workspaces)
         self.get_style_context().add_class("workspaces-box")
 
