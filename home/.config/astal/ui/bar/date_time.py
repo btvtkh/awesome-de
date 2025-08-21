@@ -22,7 +22,7 @@ class DateTimeWidget(Gtk.Box):
                 interval = calc_interval(60),
                 function = timeout_callback
             )
-            return False
+            return GLib.SOURCE_REMOVE
 
         self.add(date_label)
         self.add(Gtk.Separator(visible = True))
