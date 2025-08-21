@@ -18,7 +18,7 @@ from ui.bar import Bar
 from ui.notifications import Notifications
 from ui.launcher import Launcher
 
-scss = str(Path(__file__).parent.resolve() / "style.scss")
+scss = str(Path(__file__).parent.resolve() / "index.scss")
 css = "/tmp/style.css"
 
 class App(Astal.Application):
