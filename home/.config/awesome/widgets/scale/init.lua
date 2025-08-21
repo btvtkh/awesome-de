@@ -160,9 +160,9 @@ local function get_extremums(self)
 	return min, max, interval
 end
 
-local function move_handle(self, width, x, _)
+local function move_handle(self, width, x)
 	local min, _, interval = get_extremums(self)
-	self:set_value(min + math.floor(x * interval / width))
+	self:set_value(min + (interval*x/width))
 end
 
 local function new(args)

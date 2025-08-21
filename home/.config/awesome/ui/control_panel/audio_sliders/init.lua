@@ -1,3 +1,4 @@
+local AstalWp = require("lgi").require("AstalWp")
 local awful = require("awful")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
@@ -5,10 +6,12 @@ local widgets = require("widgets")
 local shape = require("lib.shape")
 local icons = beautiful.icons
 local dpi = beautiful.xresources.apply_dpi
-local Audio = require("service.audio")
 
 return function()
-	local audio = Audio.get_default()
+	local astal_wp = AstalWp.get_default()
+	local audio = astal_wp:get_audio()
+	local speaker = audio:get_default_speaker()
+	local microphone = audio:get_default_microphone()
 
 	local ret = wibox.widget {
 		widget = wibox.container.background,
@@ -45,6 +48,8 @@ return function()
 					{
 						id = "speaker-slider",
 						widget = widgets.scale,
+						min = 0,
+						max = 1,
 						forced_width = dpi(330),
 						forced_height = dpi(40),
 						trough_margins = dpi(19),
@@ -90,6 +95,8 @@ return function()
 					{
 						id = "microphone-slider",
 						widget = widgets.scale,
+						min = 0,
+						max = 1,
 						forced_width = dpi(330),
 						forced_height = dpi(40),
 						trough_margins = dpi(19),
@@ -128,17 +135,21 @@ return function()
 		speaker_mute_icon:set_color(fg)
 	end
 
-	wp.on_microphone_mute_fg = function(_, fg)
-		microphone_mute_icon:set_color(fg)
+	wp.on_speaker_slider_value = function(_, value)
+		speaker_volume_label:set_label(tostring(math.floor(value*100)) .. "%")
 	end
 
-	wp.on_sink_volume = function(_, val)
-		speaker_slider:set_value(tonumber(val))
-		speaker_volume_label:set_label(val .. "%")
+	wp.on_speaker_slider_dragging_stopped = function()
+		speaker:set_volume(speaker_slider:get_value())
 	end
 
-	wp.on_sink_mute = function(_, mute)
-		if mute then
+	wp.on_speaker_volume = function()
+		speaker_slider:set_value(speaker:get_volume())
+		speaker_volume_label:set_label(tostring(math.floor(speaker:get_volume()*100)) .. "%")
+	end
+
+	wp.on_speaker_mute = function()
+		if speaker:get_mute() then
 			speaker_mute_icon:set_icon(icons.speaker_mute)
 			speaker_slider:set_highlight_color(beautiful.fg_alt)
 			speaker_slider:set_slider_border_color(beautiful.fg_alt)
@@ -149,21 +160,25 @@ return function()
 		end
 	end
 
-	wp.on_speaker_slider_value = function()
-		speaker_volume_label:set_label(tostring(speaker_slider:get_value()) .. "%")
+	wp.on_microphone_mute_fg = function(_, fg)
+		microphone_mute_icon:set_color(fg)
 	end
 
-	wp.on_speaker_slider_dragging_stopped = function()
-		audio:set_default_sink_volume(speaker_slider:get_value())
+	wp.on_microphone_slider_value = function(_, value)
+		microphone_volume_label:set_label(tostring(math.floor(value*100)) .. "%")
 	end
 
-	wp.on_source_volume = function(_, val)
-		microphone_slider:set_value(tonumber(val))
-		microphone_volume_label:set_label(val .. "%")
+	wp.on_microphone_slider_dragging_stopped = function()
+		microphone:set_volume(microphone_slider:get_value())
 	end
 
-	wp.on_source_mute = function(_, mute)
-		if mute then
+	wp.on_microphone_volume = function()
+		microphone_slider:set_value(microphone:get_volume())
+		microphone_volume_label:set_label(tostring(math.floor(microphone:get_volume()*100)) .. "%")
+	end
+
+	wp.on_microphone_mute = function()
+		if microphone:get_mute() then
 			microphone_mute_icon:set_icon(icons.microphone_mute)
 			microphone_slider:set_highlight_color(beautiful.fg_alt)
 			microphone_slider:set_slider_border_color(beautiful.fg_alt)
@@ -174,15 +189,6 @@ return function()
 		end
 	end
 
-	wp.on_microphone_slider_value = function()
-		microphone_volume_label:set_label(tostring(microphone_slider:get_value()) .. "%")
-	end
-
-	wp.on_microphone_slider_dragging_stopped = function()
-		audio:set_default_source_volume(microphone_slider:get_value())
-	end
-
-
 	speaker_mute_button:connect_signal("property::fg", wp.on_speaker_mute_fg)
 	speaker_slider:connect_signal("property::value", wp.on_speaker_slider_value)
 	speaker_slider:connect_signal("dragging-stopped", wp.on_speaker_slider_dragging_stopped)
@@ -190,22 +196,20 @@ return function()
 	microphone_slider:connect_signal("property::value", wp.on_microphone_slider_value)
 	microphone_slider:connect_signal("dragging-stopped", wp.on_microphone_slider_dragging_stopped)
 
-	audio:connect_signal("default-sink::volume", wp.on_sink_volume)
-	audio:connect_signal("default-sink::mute", wp.on_sink_mute)
-	audio:connect_signal("default-source::volume", wp.on_source_volume)
-	audio:connect_signal("default-source::mute", wp.on_source_mute)
+	speaker.on_notify:connect(wp.on_speaker_volume, "volume", false)
+	speaker.on_notify:connect(wp.on_speaker_mute, "mute", false)
+	microphone.on_notify:connect(wp.on_microphone_volume, "volume", false)
+	microphone.on_notify:connect(wp.on_microphone_mute, "mute", false)
 
 	speaker_mute_button:buttons {
 		awful.button({}, 1, nil, function()
-			audio:toggle_default_sink_mute()
-			audio:get_default_sink_data()
+			speaker:set_mute(not speaker:get_mute())
 		end)
 	}
 
 	microphone_mute_button:buttons {
 		awful.button({}, 1, nil, function()
-			audio:toggle_default_source_mute()
-			audio:get_default_source_data()
+			microphone:set_mute(not microphone:get_mute())
 		end)
 	}
 
