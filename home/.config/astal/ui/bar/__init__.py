@@ -2,6 +2,8 @@ from gi.repository import Gtk, Astal
 from .workspaces import WorkspacesWidget
 from .clients import ClientsWidget
 from .date_time import DateTimeWidget
+from .tray import TrayWidget
+from .kb_layout import KbLayoutWidget
 
 class Bar(Astal.Window):
     def __init__(self, monitor):
@@ -36,6 +38,8 @@ class Bar(Astal.Window):
 
         left_box.add(WorkspacesWidget())
         left_box.add(ClientsWidget())
+        right_box.add(TrayWidget())
+        right_box.add(KbLayoutWidget())
         right_box.add(DateTimeWidget())
         main_box.add(left_box)
         main_box.add(right_box)

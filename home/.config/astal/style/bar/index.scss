@@ -2,6 +2,8 @@
 @use "workspaces";
 @use "clients";
 @use "date_time";
+@use "tray";
+@use "kb_layout";
 
 .bar-window {
   .bar-box {
