@@ -49,6 +49,7 @@ class WorkspacesWidget(Gtk.Box):
             for ws in wss:
                 if not (ws.get_id() >= -99 and ws.get_id() <= -2):
                     self.add(WorkspaceButton(ws))
+            del wss
 
         hyprland.connect("notify::workspaces", on_workspaces)
 
@@ -59,3 +60,4 @@ class WorkspacesWidget(Gtk.Box):
         for ws in wss:
             if not (ws.get_id() >= -99 and ws.get_id() <= -2):
                 self.add(WorkspaceButton(ws))
+        del wss

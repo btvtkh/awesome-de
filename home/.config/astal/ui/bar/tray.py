@@ -5,7 +5,6 @@ class TrayItem(Gtk.MenuButton):
         super().__init__(
             visible = True,
             use_popover = False,
-            height_request = 20,
             child = Gtk.Image(
                 visible = True,
                 pixel_size = 16
