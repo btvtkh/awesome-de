@@ -47,8 +47,12 @@
 
         .description-label {
           font-size: 9pt;
-          font-weight: 500;
         }
+      }
+
+      .no-match-label {
+        font-size: 17pt;
+        color: $fg-alt;
       }
     }
   }

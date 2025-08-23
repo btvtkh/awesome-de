@@ -1,7 +1,52 @@
-from gi.repository import Gdk, Gtk, Pango, Astal, AstalApps
+import re
+from gi.repository import Gio, Gdk, Gtk, Pango, Astal, AstalHyprland
+
+def launch_app(app):
+    desktop = Gio.DesktopAppInfo.new(Gio.AppInfo.get_id(app))
+    term = desktop.get_string("Terminal") == "true" and Gio.AppInfo.get_default_for_uri_scheme('terminal') or False
+
+    AstalHyprland.get_default().dispatch("exec", f"{
+        term and
+            f"{term.get_executable()} -e {app.get_executable()}"
+        or
+            re.search("^env", app.get_executable()) and
+                re.sub("%a", "", app.get_commandline())
+            or
+                app.get_executable()
+    }")
+
+def filter_apps(apps, query):
+    query = re.escape(query)
+    filtered = []
+    filtered_any = []
+
+    for app in apps:
+        if app.should_show():
+            if re.search("^" + query, app.get_name().casefold()):
+                filtered.append(app)
+            elif re.search(query, app.get_name().casefold()):
+                filtered_any.append(app)
+            elif re.search(query, app.get_executable().casefold()):
+                filtered_any.append(app)
+            elif re.search(query, app.get_description().casefold()):
+                filtered_any.append(app)
+
+    filtered.sort(key = lambda app: app.get_name())
+    filtered_any.sort(key = lambda app: app.get_name())
+    filtered += filtered_any
+
+    del query
+    del apps
+    del filtered_any
+    return filtered
 
 class AppButton(Gtk.Button):
     def __init__(self, window, app):
+        super().__init__(
+            child = Gtk.Box(
+                orientation = Gtk.Orientation.VERTICAL
+            )
+        )
 
         name_label = Gtk.Label(
             halign = Gtk.Align.START,
@@ -23,17 +68,11 @@ class AppButton(Gtk.Button):
 
         def on_activate(*_):
             window.hide()
-            app.launch()
+            launch_app(app)
 
         def on_clicked(*_):
             window.hide()
-            app.launch()
-
-        super().__init__(
-            child = Gtk.Box(
-                orientation = Gtk.Orientation.VERTICAL
-            )
-        )
+            launch_app(app)
 
         on_activate_id = self.connect("activate", on_activate)
         on_clicked_id = self.connect("clicked", on_clicked)
@@ -50,8 +89,17 @@ class AppButton(Gtk.Button):
 
 class Launcher(Astal.Window):
     def __init__(self):
-
-        apps = AstalApps.Apps()
+        super().__init__(
+            layer = Astal.Layer.TOP,
+            anchor = Astal.WindowAnchor.BOTTOM
+                | Astal.WindowAnchor.TOP
+                | Astal.WindowAnchor.LEFT
+                | Astal.WindowAnchor.RIGHT,
+            keymode = Astal.Keymode.ON_DEMAND,
+            namespace = "Astal-Launcher",
+            name = "Launcher"
+        )
+        self.get_style_context().add_class("launcher-window")
 
         outside_hbox = Gtk.Box()
         outside_vbox = Gtk.Box(
@@ -111,9 +159,7 @@ class Launcher(Astal.Window):
                 )
 
                 if not apps_box.get_children():
-                    apps_list = apps.get_list()
-                    apps_list.sort(key = lambda x: x.get_name())
-                    for app in apps_list:
+                    for app in filter_apps(Gio.AppInfo.get_all(), ""):
                         apps_box.add(AppButton(self, app))
 
                 self.show_all()
@@ -127,17 +173,11 @@ class Launcher(Astal.Window):
                 for child in apps_box.get_children():
                     child.destroy()
 
-            apps_list = []
-            if search_entry.get_text() != "":
-                apps_list = apps.fuzzy_query(search_entry.get_text())
-            else:
-                apps_list = apps.get_list()
-                apps_list.sort(key = lambda x: x.get_name())
 
-            if len(apps_list) > 0:
-                for app in apps_list:
-                    apps_box.add(AppButton(self, app))
-            else:
+            for app in filter_apps(Gio.AppInfo.get_all(), search_entry.get_text()):
+                apps_box.add(AppButton(self, app))
+
+            if not apps_box.get_children():
                 no_match_box = Gtk.Box(
                     halign = Gtk.Align.CENTER,
                     valign = Gtk.Align.CENTER,
@@ -159,19 +199,6 @@ class Launcher(Astal.Window):
             if apps_box.get_children():
                 if isinstance(apps_box.get_children()[0], Gtk.Button):
                     apps_box.get_children()[0].activate()
-
-        super().__init__(
-            layer = Astal.Layer.TOP,
-            anchor = Astal.WindowAnchor.BOTTOM
-                | Astal.WindowAnchor.TOP
-                | Astal.WindowAnchor.LEFT
-                | Astal.WindowAnchor.RIGHT,
-            keymode = Astal.Keymode.ON_DEMAND,
-            namespace = "Astal-Launcher",
-            name = "Launcher"
-        )
-
-        self.get_style_context().add_class("launcher-window")
 
         for w in [left_eventbox, right_eventbox, top_eventbox, bottom_eventbox]:
             w.connect("button-press-event", on_evetbox_click)

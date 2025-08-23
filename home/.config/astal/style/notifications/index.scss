@@ -1,7 +1,7 @@
 @use "../theme" as *;
 
 .notifications-window {
-  background-color: #ff000021;
+  background-color: transparent;
 
   .notification-box {
     min-width: 350px;
@@ -12,10 +12,6 @@
     padding: 8px;
     border-radius: 18px;
     color: $fg;
-
-    label {
-      font-weight: 500;
-    }
 
     .header-box {
       margin: 5px 5px 0 5px;

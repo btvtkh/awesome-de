@@ -1,9 +1,17 @@
-from gi.repository import Gtk, Pango, AstalHyprland as Hyprland
+from gi.repository import Gtk, Pango, AstalHyprland
 
 class ClientButton(Gtk.Button):
     def __init__(self, c):
+        super().__init__(
+            child = Gtk.Label(
+                visible = True,
+                max_width_chars = 15,
+                ellipsize = Pango.EllipsizeMode.END,
+                label = c.get_initial_class()
+            )
+        )
 
-        hyprland = Hyprland.get_default()
+        hyprland = AstalHyprland.get_default()
 
         def on_focused_client(*_):
             if c == hyprland.get_focused_client():
@@ -24,15 +32,6 @@ class ClientButton(Gtk.Button):
             if c.get_floating():
                 hyprland.dispatch("alterzorder", f"top, {c.get_address()}")
 
-        super().__init__(
-            child = Gtk.Label(
-                visible = True,
-                max_width_chars = 15,
-                ellipsize = Pango.EllipsizeMode.END,
-                label = c.get_initial_class()
-            )
-        )
-
         on_focused_c_id = hyprland.connect("notify::focused-client", on_focused_client)
         on_focused_ws_id = hyprland.connect("notify::focused-workspace", on_focused_workspace)
         on_c_moved_id = hyprland.connect("client-moved", on_client_moved)
@@ -51,8 +50,10 @@ class ClientButton(Gtk.Button):
 
 class ClientsWidget(Gtk.Box):
     def __init__(self):
+        super().__init__(visible = True)
+        self.get_style_context().add_class("clients-box")
 
-        hyprland = Hyprland.get_default()
+        hyprland = AstalHyprland.get_default()
 
         def on_clients(*_):
             for child in self.get_children():
@@ -61,9 +62,7 @@ class ClientsWidget(Gtk.Box):
             for c in hyprland.get_clients():
                 self.add(ClientButton(c))
 
-        super().__init__(visible = True)
         hyprland.connect("notify::clients", on_clients)
-        self.get_style_context().add_class("clients-box")
 
         for c in hyprland.get_clients():
             self.add(ClientButton(c))

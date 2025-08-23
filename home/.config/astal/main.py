@@ -8,7 +8,6 @@ gi.require_version("AstalIO", "0.1")
 gi.require_version("Astal", "3.0")
 gi.require_version("AstalHyprland", "0.1")
 gi.require_version("AstalNotifd", "0.1")
-gi.require_version("AstalApps", "0.1")
 
 import sys
 import subprocess

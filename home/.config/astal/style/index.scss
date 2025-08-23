@@ -1,3 +1,8 @@
 @use "bar/index" as *;
 @use "notifications/index" as *;
 @use "launcher/index" as *;
+
+label {
+  font-size: 11pt;
+  font-weight: 500;
+}

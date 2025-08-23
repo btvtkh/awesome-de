@@ -1,4 +1,4 @@
-from datetime import datetime as DateTime
+from datetime import datetime
 from gi.repository import Gtk, Pango
 
 UrgencyMap = {
@@ -9,10 +9,6 @@ UrgencyMap = {
 
 class ActionButton(Gtk.Button):
     def __init__(self, n, action):
-
-        def on_clicked(*_):
-            n.invoke(action.id)
-
         super().__init__(
             hexpand = True,
             child = Gtk.Label(
@@ -23,8 +19,10 @@ class ActionButton(Gtk.Button):
                 label = action.label
             )
         )
-
         self.get_style_context().add_class("action-button")
+
+        def on_clicked(*_):
+            n.invoke(action.id)
 
         on_clicked_id = self.connect("clicked", on_clicked)
 
@@ -35,6 +33,11 @@ class ActionButton(Gtk.Button):
 
 class NotificationWidget(Gtk.Box):
     def __init__(self, n):
+        super().__init__(
+            orientation = Gtk.Orientation.VERTICAL
+        )
+        self.get_style_context().add_class("notification-box")
+        self.get_style_context().add_class(UrgencyMap[str(n.get_urgency())])
 
         def on_close_clicked(*_):
             n.dismiss()
@@ -49,7 +52,7 @@ class NotificationWidget(Gtk.Box):
         time_label = Gtk.Label(
             hexpand = True,
             halign = Gtk.Align.END,
-            label = DateTime.fromtimestamp(n.get_time()).strftime("%H:%M")
+            label = datetime.fromtimestamp(n.get_time()).strftime("%H:%M")
         )
         time_label.get_style_context().add_class("time-label")
 
@@ -96,12 +99,6 @@ class NotificationWidget(Gtk.Box):
         content_box.get_style_context().add_class("content-box")
         content_box.add(body_box)
 
-        super().__init__(
-            orientation = Gtk.Orientation.VERTICAL
-        )
-
-        self.get_style_context().add_class("notification-box")
-        self.get_style_context().add_class(UrgencyMap[str(n.get_urgency())])
         self.add(header_box)
         self.add(Gtk.Separator())
         self.add(content_box)

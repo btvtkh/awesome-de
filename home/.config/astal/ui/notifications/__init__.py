@@ -1,8 +1,11 @@
-from gi.repository import GLib, Gtk, Astal, AstalNotifd as Notifd
+from gi.repository import GLib, Gtk, Astal, AstalNotifd
 from .notification import NotificationWidget
 
 class NotificationPopup(Gtk.Box):
     def __init__(self, window, n):
+        super().__init__(
+            halign = Gtk.Align.END,
+        )
 
         outer = Gtk.Revealer(
             transition_type = Gtk.RevealerTransitionType.SLIDE_DOWN
@@ -35,11 +38,6 @@ class NotificationPopup(Gtk.Box):
                 function = on_inner_timeout_end
             )
 
-
-        super().__init__(
-            halign = Gtk.Align.END,
-        )
-
         on_resolved_id = n.connect("resolved", on_resolved)
 
         inner.add(NotificationWidget(n))
@@ -64,8 +62,17 @@ class NotificationPopup(Gtk.Box):
 
 class Notifications(Astal.Window):
     def __init__(self):
+        super().__init__(
+            layer = Astal.Layer.TOP,
+            anchor = Astal.WindowAnchor.TOP
+                | Astal.WindowAnchor.RIGHT,
+            exclusivity = Astal.Exclusivity.EXCLUSIVE,
+            namespace = "Astal-Notifications",
+            name = "Notifications"
+        )
+        self.get_style_context().add_class("notifications-window")
 
-        notifd = Notifd.get_default()
+        notifd = AstalNotifd.get_default()
 
         notifications_box = Gtk.Box(
             orientation = Gtk.Orientation.VERTICAL,
@@ -95,16 +102,6 @@ class Notifications(Astal.Window):
                 function = on_outer_timeout_end
             )
 
-        super().__init__(
-            layer = Astal.Layer.TOP,
-            anchor = Astal.WindowAnchor.TOP
-                | Astal.WindowAnchor.RIGHT,
-            exclusivity = Astal.Exclusivity.EXCLUSIVE,
-            namespace = "Astal-Notifications",
-            name = "Notifications"
-        )
-
-        self.get_style_context().add_class("notifications-window")
         self.add(notifications_box)
 
         notifd.connect("notified", on_notified)

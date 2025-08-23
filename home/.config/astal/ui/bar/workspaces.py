@@ -1,9 +1,17 @@
-from gi.repository import Gtk, AstalHyprland as Hyprland
+from gi.repository import Gtk, AstalHyprland
 
 class WorkspaceButton(Gtk.Button):
     def __init__(self, ws):
+        super().__init__(
+            visible = True,
+            child = Gtk.Label(
+                visible = True,
+                label = ws.get_name()
+            )
+        )
+        self.get_style_context().add_class("workspace-button")
 
-        hyprland = Hyprland.get_default()
+        hyprland = AstalHyprland.get_default()
 
         def on_focused_ws(*_):
             if ws == hyprland.get_focused_workspace():
@@ -15,14 +23,6 @@ class WorkspaceButton(Gtk.Button):
             if ws != hyprland.get_focused_workspace():
                 ws.focus()
 
-        super().__init__(
-            visible = True,
-            child = Gtk.Label(
-                visible = True,
-                label = ws.get_name()
-            )
-        )
-
         on_focused_ws_id = hyprland.connect("notify::focused-workspace", on_focused_ws)
         on_clicked_id = self.connect("clicked", on_clicked)
 
@@ -31,13 +31,14 @@ class WorkspaceButton(Gtk.Button):
             self.disconnect(on_clicked_id)
 
         self.connect("destroy", on_destroy)
-        self.get_style_context().add_class("workspace-button")
         self.get_style_context().add_class(ws == hyprland.get_focused_workspace() and "focused" or "")
 
 class WorkspacesWidget(Gtk.Box):
     def __init__(self):
+        super().__init__(visible = True)
+        self.get_style_context().add_class("workspaces-box")
 
-        hyprland = Hyprland.get_default()
+        hyprland = AstalHyprland.get_default()
 
         def on_workspaces(*_):
             for child in self.get_children():
@@ -49,9 +50,7 @@ class WorkspacesWidget(Gtk.Box):
                 if not (ws.get_id() >= -99 and ws.get_id() <= -2):
                     self.add(WorkspaceButton(ws))
 
-        super().__init__(visible = True)
         hyprland.connect("notify::workspaces", on_workspaces)
-        self.get_style_context().add_class("workspaces-box")
 
         wss = hyprland.get_workspaces()
         wss.sort(key = lambda x: x.get_id())
