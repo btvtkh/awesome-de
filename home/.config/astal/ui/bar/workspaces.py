@@ -9,7 +9,6 @@ class WorkspaceButton(Gtk.Button):
                 label = ws.get_name()
             )
         )
-        self.get_style_context().add_class("workspace-button")
 
         hyprland = AstalHyprland.get_default()
 
@@ -31,12 +30,13 @@ class WorkspaceButton(Gtk.Button):
             self.disconnect(on_clicked_id)
 
         self.connect("destroy", on_destroy)
+
+        self.get_style_context().add_class("workspace-button")
         self.get_style_context().add_class(ws == hyprland.get_focused_workspace() and "focused" or "")
 
 class WorkspacesWidget(Gtk.Box):
     def __init__(self):
         super().__init__(visible = True)
-        self.get_style_context().add_class("workspaces-box")
 
         hyprland = AstalHyprland.get_default()
 
@@ -51,6 +51,8 @@ class WorkspacesWidget(Gtk.Box):
                     self.add(WorkspaceButton(ws))
 
         hyprland.connect("notify::workspaces", on_workspaces)
+
+        self.get_style_context().add_class("workspaces-box")
 
         wss = hyprland.get_workspaces()
         wss.sort(key = lambda x: x.get_id())

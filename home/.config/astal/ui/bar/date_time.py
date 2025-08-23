@@ -8,7 +8,6 @@ def calc_interval(interval):
 class DateTimeWidget(Gtk.Box):
     def __init__(self):
         super().__init__(visible = True)
-        self.get_style_context().add_class("date-time-box")
 
         time_label = Gtk.Label(visible = True)
         date_label = Gtk.Label(visible = True)
@@ -23,7 +22,10 @@ class DateTimeWidget(Gtk.Box):
             )
             return GLib.SOURCE_REMOVE
 
+        self.get_style_context().add_class("date-time-box")
+
         self.add(date_label)
         self.add(Gtk.Separator(visible = True))
         self.add(time_label)
+
         timeout_callback()

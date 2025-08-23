@@ -19,7 +19,6 @@ class ActionButton(Gtk.Button):
                 label = action.label
             )
         )
-        self.get_style_context().add_class("action-button")
 
         def on_clicked(*_):
             n.invoke(action.id)
@@ -31,30 +30,25 @@ class ActionButton(Gtk.Button):
 
         self.connect("destroy", on_destroy)
 
+        self.get_style_context().add_class("action-button")
+
 class NotificationWidget(Gtk.Box):
     def __init__(self, n):
         super().__init__(
             orientation = Gtk.Orientation.VERTICAL
         )
-        self.get_style_context().add_class("notification-box")
-        self.get_style_context().add_class(UrgencyMap[str(n.get_urgency())])
-
-        def on_close_clicked(*_):
-            n.dismiss()
 
         app_name_label = Gtk.Label(
             halign = Gtk.Align.START,
             ellipsize = Pango.EllipsizeMode.END,
             label = n.get_app_name() or "Unknown"
         )
-        app_name_label.get_style_context().add_class("app-name-label")
 
         time_label = Gtk.Label(
             hexpand = True,
             halign = Gtk.Align.END,
             label = datetime.fromtimestamp(n.get_time()).strftime("%H:%M")
         )
-        time_label.get_style_context().add_class("time-label")
 
         close_button = Gtk.Button(
             child = Gtk.Image(
@@ -62,7 +56,6 @@ class NotificationWidget(Gtk.Box):
                 icon_name = "window-close-symbolic"
             )
         )
-        close_button.get_style_context().add_class("close-button")
 
         summary_label = Gtk.Label(
             halign = Gtk.Align.START,
@@ -71,7 +64,6 @@ class NotificationWidget(Gtk.Box):
             max_width_chars = 25,
             label = n.get_summary()
         )
-        summary_label.get_style_context().add_class("summary-label")
 
         body_label = Gtk.Label(
             use_markup = True,
@@ -81,36 +73,14 @@ class NotificationWidget(Gtk.Box):
             max_width_chars = 30,
             label = n.get_body()
         )
-        body_label.get_style_context().add_class("body-label")
 
         header_box = Gtk.Box()
-        header_box.get_style_context().add_class("header-box")
-        header_box.add(app_name_label)
-        header_box.add(time_label)
-        header_box.add(close_button)
-
-        body_box = Gtk.Box(
-            orientation = Gtk.Orientation.VERTICAL
-        )
-        body_box.add(summary_label)
-        body_box.add(body_label)
-
+        body_box = Gtk.Box(orientation = Gtk.Orientation.VERTICAL)
         content_box = Gtk.Box()
-        content_box.get_style_context().add_class("content-box")
-        content_box.add(body_box)
+        actions_box = Gtk.Box()
 
-        self.add(header_box)
-        self.add(Gtk.Separator())
-        self.add(content_box)
-
-        if n.get_actions():
-            actions_box = Gtk.Box()
-            actions_box.get_style_context().add_class("actions-box")
-
-            for action in n.get_actions():
-                actions_box.add(ActionButton(n, action))
-
-            self.add(actions_box)
+        def on_close_clicked(*_):
+            n.dismiss()
 
         on_close_clicked_id = close_button.connect("clicked", on_close_clicked)
 
@@ -119,4 +89,27 @@ class NotificationWidget(Gtk.Box):
 
         self.connect("destroy", on_destroy)
 
+        self.get_style_context().add_class("notification-box")
+        self.get_style_context().add_class(UrgencyMap[str(n.get_urgency())])
+        app_name_label.get_style_context().add_class("app-name-label")
+        time_label.get_style_context().add_class("time-label")
+        close_button.get_style_context().add_class("close-button")
+        header_box.get_style_context().add_class("header-box")
+        summary_label.get_style_context().add_class("summary-label")
+        body_label.get_style_context().add_class("body-label")
+        content_box.get_style_context().add_class("content-box")
+        actions_box.get_style_context().add_class("actions-box")
 
+        header_box.add(app_name_label)
+        header_box.add(time_label)
+        header_box.add(close_button)
+        body_box.add(summary_label)
+        body_box.add(body_label)
+        content_box.add(body_box)
+        self.add(header_box)
+        self.add(Gtk.Separator())
+        self.add(content_box)
+        if n.get_actions():
+            for action in n.get_actions():
+                actions_box.add(ActionButton(n, action))
+            self.add(actions_box)

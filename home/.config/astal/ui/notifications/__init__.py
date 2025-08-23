@@ -40,14 +40,14 @@ class NotificationPopup(Gtk.Box):
 
         on_resolved_id = n.connect("resolved", on_resolved)
 
-        inner.add(NotificationWidget(n))
-        outer.add(inner)
-        self.add(outer)
-
         def on_destroy(*_):
             n.disconnect(on_resolved_id)
 
         self.connect("destroy", on_destroy)
+
+        inner.add(NotificationWidget(n))
+        outer.add(inner)
+        self.add(outer)
 
         def on_display_timeout_end():
             #on_resolved()
@@ -70,7 +70,6 @@ class Notifications(Astal.Window):
             namespace = "Astal-Notifications",
             name = "Notifications"
         )
-        self.get_style_context().add_class("notifications-window")
 
         notifd = AstalNotifd.get_default()
 
@@ -102,10 +101,11 @@ class Notifications(Astal.Window):
                 function = on_outer_timeout_end
             )
 
-        self.add(notifications_box)
-
         notifd.connect("notified", on_notified)
 
+        self.get_style_context().add_class("notifications-window")
+
+        self.add(notifications_box)
         ns = notifd.get_notifications()
         ns.sort(key = lambda x: x.get_id())
         for n in ns:

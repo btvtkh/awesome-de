@@ -44,14 +44,15 @@ class ClientButton(Gtk.Button):
             self.disconnect(on_clicked_id)
 
         self.connect("destroy", on_destroy)
+
         self.get_style_context().add_class("client-button")
         self.get_style_context().add_class(c == hyprland.get_focused_client() and "focused" or "")
+
         self.set_visible(c.get_workspace() == hyprland.get_focused_workspace())
 
 class ClientsWidget(Gtk.Box):
     def __init__(self):
         super().__init__(visible = True)
-        self.get_style_context().add_class("clients-box")
 
         hyprland = AstalHyprland.get_default()
 
@@ -63,6 +64,8 @@ class ClientsWidget(Gtk.Box):
                 self.add(ClientButton(c))
 
         hyprland.connect("notify::clients", on_clients)
+
+        self.get_style_context().add_class("clients-box")
 
         for c in hyprland.get_clients():
             self.add(ClientButton(c))
