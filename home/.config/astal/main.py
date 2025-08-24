@@ -11,39 +11,17 @@ gi.require_version("AstalNotifd", "0.1")
 gi.require_version("AstalTray", "0.1")
 
 import sys
-import subprocess
-from pathlib import Path
-from gi.repository import AstalIO, Astal
-from ui.bar import Bar
-from ui.notifications import Notifications
-from ui.launcher import Launcher
+from gi.repository import AstalIO
+from app import App
 
-scss = str(Path(__file__).parent.resolve() / "index.scss")
-css = "/tmp/style.css"
-
-class App(Astal.Application):
-    def do_activate(self):
-        self.hold()
-        subprocess.run(["sass", scss, css])
-        self.apply_css(css, True)
-
-        for mon in self.get_monitors():
-            self.add_window(Bar(mon))
-
-        self.add_window(Notifications())
-        self.add_window(Launcher())
-
-instance_name = "astal-py"
-app = App(instance_name = instance_name)
+app = App(instance_name = "astal-py")
 
 if __name__ == "__main__":
     try:
         app.acquire_socket()
         app.run(None)
     except Exception:
-        print(
-            AstalIO.send_request(
-                instance_name,
-                "".join(sys.argv[1:])
-            )
-        )
+        print(AstalIO.send_request(
+            "astal-py",
+            "".join(sys.argv[1:])
+        ))

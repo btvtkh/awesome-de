@@ -64,20 +64,20 @@ class AppButton(Gtk.Button):
             label = app.get_description()
         )
 
-        def on_activate(*_):
-            window.hide()
-            launch_app(app)
-
         def on_clicked(*_):
             window.hide()
             launch_app(app)
 
-        on_activate_id = self.connect("activate", on_activate)
+        def on_key_press(x, event):
+             if event.keyval == Gdk.KEY_Return:
+                on_clicked()
+
         on_clicked_id = self.connect("clicked", on_clicked)
+        on_key_press_id = self.connect("key-press-event", on_key_press)
 
         def on_destroy(*_):
-            self.disconnect(on_activate_id)
             self.disconnect(on_clicked_id)
+            self.disconnect(on_key_press_id)
 
         self.connect("destroy", on_destroy)
 
@@ -122,8 +122,6 @@ class Launcher(Astal.Window):
         )
 
         apps_scroll = Gtk.ScrolledWindow(
-            width_request = 400,
-            height_request = 450,
             hexpand = False,
             vexpand = False
         )
@@ -191,7 +189,7 @@ class Launcher(Astal.Window):
         def on_search_activate(*_):
             if apps_box.get_children():
                 if isinstance(apps_box.get_children()[0], Gtk.Button):
-                    apps_box.get_children()[0].activate()
+                    apps_box.get_children()[0].clicked()
 
         search_entry.connect("activate", on_search_activate)
         search_entry.connect("notify::text", on_search_text)
