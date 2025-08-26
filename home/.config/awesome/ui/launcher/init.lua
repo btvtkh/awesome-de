@@ -19,13 +19,13 @@ local launcher = {}
 
 local function launch_app(app)
 	if not app then return end
-	local desktop_info = Gio.DesktopAppInfo.new(app:get_id())
-	local term_needed = desktop_info:get_string("Terminal") == "true"
-	local term = Gio.AppInfo.get_default_for_uri_scheme('terminal')
+	local desktop = Gio.DesktopAppInfo.new(app:get_id())
+	local term = desktop:get_string("Terminal") == "true" and
+		Gio.AppInfo.get_default_for_uri_scheme('terminal') or false
 
 	awful.spawn(
-		term_needed and
-			term and string.format("%s -e %s", term:get_executable(), app:get_executable())
+		term and
+			string.format("%s -e %s", term:get_executable(), app:get_executable())
 		or
 			string.match(app:get_executable(), "^env") and
 				string.gsub(app:get_commandline(), "%%%a", "")
@@ -41,13 +41,13 @@ local function filter_apps(apps, query)
 
 	for _, app in ipairs(apps) do
 		if app:should_show() then
-			local name_match = utf8.lower(utf8.sub(app:get_name(), 1, utf8.len(query))) == utf8.lower(query)
-			local name_match_any = utf8.match(utf8.lower(app:get_name()), utf8.lower(query))
-			local exec_match_any = utf8.match(utf8.lower(app:get_executable()), utf8.lower(query))
-
-			if name_match then
+			if utf8.match(utf8.lower(app:get_name()), utf8.lower("^" .. query)) then
 				table.insert(filtered, app)
-			elseif name_match_any or exec_match_any then
+			elseif utf8.match(utf8.lower(app:get_name()), utf8.lower(query)) then
+				table.insert(filtered_any, app)
+			elseif utf8.match(utf8.lower(app:get_executable()), utf8.lower(query)) then
+				table.insert(filtered_any, app)
+			elseif utf8.match(utf8.lower(app:get_description()), utf8.lower(query)) then
 				table.insert(filtered_any, app)
 			end
 		end

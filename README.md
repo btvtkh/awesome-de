@@ -11,10 +11,10 @@
 ```
 xorg
 xorg-xinit
-awesome-git (aur)
 luarocks
-pulseaudio
-pulseaudio-bluetooth
+pipewire
+wireplumber
+pipewire-pulse
 networkmanager
 bluez
 bluez-utils
@@ -22,10 +22,12 @@ picom
 maim
 zenity
 alacritty
+libastal-wireplumber-git (aur)
+awesome-git (aur)
 ```
 for example using [pikaur](https://github.com/actionless/pikaur) as an aur helper
 ```
-$ pikaur -S xorg xorg-xinit awesome-git luarocks pulseaudio pulseaudio-bluetooth networkmanager bluez bluez-utils picom maim zenity alacritty
+$ pikaur -S xorg xorg-xinit awesome-git luarocks pipewire wireplumber pipewire-pulse networkmanager bluez bluez-utils picom maim zenity alacritty libastal-wireplumber-git
 ```
 
 #### 2. Install lua modules
