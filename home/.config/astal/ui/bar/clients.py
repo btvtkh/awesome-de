@@ -7,7 +7,7 @@ class ClientButton(Gtk.Button):
                 visible = True,
                 max_width_chars = 15,
                 ellipsize = Pango.EllipsizeMode.END,
-                label = c.get_initial_class()
+                label = c.get_initial_class() or "Untitled"
             )
         )
 

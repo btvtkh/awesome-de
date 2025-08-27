@@ -35,8 +35,6 @@ def filter_apps(apps, query):
     filtered_any.sort(key = lambda app: app.get_name())
     filtered += filtered_any
 
-    del query
-    del apps
     del filtered_any
     return filtered
 
