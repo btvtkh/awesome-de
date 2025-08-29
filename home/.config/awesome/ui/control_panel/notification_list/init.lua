@@ -415,14 +415,14 @@ return function()
 	naughty.connect_signal("request::display", wp.on_added)
 
 	dnd_button:buttons {
-		awful.button({}, 1, function()
+		awful.button({}, 1, nil, function()
 			ret:toggle_dnd()
 			dnd_icon:set_icon(wp.dnd_mode and icons.bell_off or icons.bell)
 		end)
 	}
 
 	clear_button:buttons {
-		awful.button({}, 1, function()
+		awful.button({}, 1, nil, function()
 			ret:clear_notifications()
 		end)
 	}
