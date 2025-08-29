@@ -452,7 +452,6 @@ return function()
 				{
 					widget = widgets.label,
 					align = "center",
-					font_weight = "bold",
 					font_size = 12
 				}
 			}
