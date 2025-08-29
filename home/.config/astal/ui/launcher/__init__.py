@@ -1,5 +1,5 @@
 import re
-from gi.repository import Gio, Gdk, Gtk, Pango, Astal, AstalHyprland
+from gi.repository import Gio, Gdk, Gtk, GtkLayerShell, Pango, AstalHyprland
 
 def launch_app(app):
     desktop = Gio.DesktopAppInfo.new(Gio.AppInfo.get_id(app))
@@ -86,18 +86,20 @@ class AppButton(Gtk.Button):
         self.get_child().add(name_label)
         self.get_child().add(description_label)
 
-class Launcher(Astal.Window):
+class Launcher(Gtk.Window):
     def __init__(self):
         super().__init__(
-            layer = Astal.Layer.TOP,
-            anchor = Astal.WindowAnchor.BOTTOM
-                | Astal.WindowAnchor.TOP
-                | Astal.WindowAnchor.LEFT
-                | Astal.WindowAnchor.RIGHT,
-            keymode = Astal.Keymode.ON_DEMAND,
-            namespace = "Astal-Launcher",
             name = "Launcher"
         )
+
+        GtkLayerShell.init_for_window(self)
+        GtkLayerShell.set_namespace(self, "Astal-Launcher")
+        GtkLayerShell.set_layer(self, GtkLayerShell.Layer.TOP)
+        GtkLayerShell.set_anchor(self, GtkLayerShell.Edge.BOTTOM, True)
+        GtkLayerShell.set_anchor(self, GtkLayerShell.Edge.TOP, True)
+        GtkLayerShell.set_anchor(self, GtkLayerShell.Edge.LEFT, True)
+        GtkLayerShell.set_anchor(self, GtkLayerShell.Edge.RIGHT, True)
+        GtkLayerShell.set_keyboard_mode(self, GtkLayerShell.KeyboardMode.ON_DEMAND)
 
         outside_hbox = Gtk.Box()
 

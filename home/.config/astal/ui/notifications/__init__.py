@@ -1,4 +1,4 @@
-from gi.repository import GLib, Gtk, Astal, AstalNotifd
+from gi.repository import GLib, Gtk, GtkLayerShell, AstalNotifd
 from .notification import NotificationWidget
 
 class NotificationPopup(Gtk.Box):
@@ -60,16 +60,20 @@ class NotificationPopup(Gtk.Box):
             function = on_display_timeout_end
         )
 
-class Notifications(Astal.Window):
+class Notifications(Gtk.Window):
     def __init__(self):
         super().__init__(
-            layer = Astal.Layer.TOP,
-            anchor = Astal.WindowAnchor.TOP
-                | Astal.WindowAnchor.RIGHT,
-            exclusivity = Astal.Exclusivity.EXCLUSIVE,
-            namespace = "Astal-Notifications",
+            width_request = 1,
+            height_request = 1,
             name = "Notifications"
         )
+
+        GtkLayerShell.init_for_window(self)
+        GtkLayerShell.set_namespace(self, "Astal-Notifications")
+        GtkLayerShell.auto_exclusive_zone_enable(self)
+        GtkLayerShell.set_layer(self, GtkLayerShell.Layer.TOP)
+        GtkLayerShell.set_anchor(self, GtkLayerShell.Edge.TOP, True)
+        GtkLayerShell.set_anchor(self, GtkLayerShell.Edge.RIGHT, True)
 
         notifd = AstalNotifd.get_default()
 

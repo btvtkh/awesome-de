@@ -1,18 +1,19 @@
-from gi.repository import Gdk, Gtk, Astal, AstalHyprland
+from gi.repository import Gdk, Gtk, GtkLayerShell, AstalHyprland
 
-class Powermenu(Astal.Window):
+class Powermenu(Gtk.Window):
     def __init__(self):
         super().__init__(
-            layer = Astal.Layer.TOP,
-            anchor = Astal.WindowAnchor.BOTTOM
-                | Astal.WindowAnchor.TOP
-                | Astal.WindowAnchor.LEFT
-                | Astal.WindowAnchor.RIGHT,
-            keymode = Astal.Keymode.ON_DEMAND,
-            namespace = "Astal-Powermenu",
-            name = "Powermenu",
-            visible = False
+            name = "Powermenu"
         )
+
+        GtkLayerShell.init_for_window(self)
+        GtkLayerShell.set_namespace(self, "Astal-Powermenu")
+        GtkLayerShell.set_layer(self, GtkLayerShell.Layer.TOP)
+        GtkLayerShell.set_anchor(self, GtkLayerShell.Edge.BOTTOM, True)
+        GtkLayerShell.set_anchor(self, GtkLayerShell.Edge.TOP, True)
+        GtkLayerShell.set_anchor(self, GtkLayerShell.Edge.LEFT, True)
+        GtkLayerShell.set_anchor(self, GtkLayerShell.Edge.RIGHT, True)
+        GtkLayerShell.set_keyboard_mode(self, GtkLayerShell.KeyboardMode.ON_DEMAND)
 
         hyprland = AstalHyprland.get_default()
 
