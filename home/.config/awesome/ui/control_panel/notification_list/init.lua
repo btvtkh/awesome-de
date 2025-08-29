@@ -51,7 +51,6 @@ local function create_actions_widget(n)
 					widget = widgets.label,
 					halign = "center",
 					valign = "center",
-					font_weight = "bold",
 					font_size = 11,
 					label = action.name
 				}

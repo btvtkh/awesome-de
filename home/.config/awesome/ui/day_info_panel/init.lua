@@ -6,7 +6,6 @@ local gtable = require("gears.table")
 local dpi = beautiful.xresources.apply_dpi
 local capi = { screen = screen }
 local Calendar = require("ui.day_info_panel.calendar")
---local Weather_applet = require("ui.day_info_panel.weather_applet")
 
 local day_info = {}
 
@@ -54,13 +53,8 @@ local function new()
 				widget = wibox.container.margin,
 				margins = dpi(10),
 				{
-					layout = wibox.layout.fixed.vertical,
-					spacing = dpi(6),
-					--Weather_applet(),
-					{
-						id = "calendar",
-						widget = Calendar()
-					}
+					id = "calendar",
+					widget = Calendar()
 				}
 			}
 		}

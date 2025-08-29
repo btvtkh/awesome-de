@@ -1,7 +1,7 @@
 # AwesomeWM
 
 <p align="center">
-    <img src="assets/awm5.png">
+    <img src="assets/awm6.png">
 </p>
 
 <details>
