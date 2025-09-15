@@ -54,7 +54,6 @@ function scale:set_value(value)
 	if not value then return end
 	value = math.max(self:get_min(), math.min(self:get_max(), value))
 	local changed = self._private.value ~= value
-
 	self._private.value = value
 
 	if changed then
@@ -63,8 +62,8 @@ function scale:set_value(value)
 	end
 end
 
-function scale:get_is_dragging()
-	return self._private.is_dragging
+function scale:is_dragging()
+	return self._private.dragging
 end
 
 function scale:draw(_, cr, width, height)
@@ -160,7 +159,7 @@ local function get_extremums(self)
 	return min, max, interval
 end
 
-local function move_handle(self, width, x)
+local function move_handle(self, width, x, _)
 	local min, _, interval = get_extremums(self)
 	self:set_value(min + (interval*x/width))
 end
@@ -203,7 +202,7 @@ local function new(args)
 
 	local wp = ret._private
 
-	wp.is_dragging = false
+	wp.dragging = false
 
 	wp.on_button_press = function(self, x, y, button_id, _, geo)
 		if button_id ~= 1 then return end
@@ -212,25 +211,26 @@ local function new(args)
 		local width = geo.widget_width
 
 		move_handle(self, width, x, y)
-		self._private.is_dragging = true
-		self:emit_signal("property::is_dragging", self._private.is_dragging)
-		self:emit_signal("dragging-started")
+		self._private.dragging = true
+		self:emit_signal("property::dragging", self._private.dragging)
 
 		local wgeo = geo.drawable.drawable:geometry()
 		local matrix = matrix_from_device:translate(-wgeo.x, -wgeo.y)
 
-		capi.mousegrabber.run(function(mouse)
-			if not mouse.buttons[1] then
-				self._private.is_dragging = false
-				self:emit_signal("property::is_dragging", self._private.is_dragging)
-				self:emit_signal("dragging-stopped")
-				return false
-			end
+		capi.mousegrabber.run(
+			function(mouse)
+				if not mouse.buttons[1] then
+					self._private.dragging = false
+					self:emit_signal("property::dragging", self._private.dragging)
+					return false
+				end
 
-			move_handle(self, width, matrix:transform_point(mouse.x, mouse.y))
+				move_handle(self, width, matrix:transform_point(mouse.x, mouse.y))
 
-			return true
-		end, nil)
+				return true
+			end,
+			nil
+		)
 	end
 
 	ret:connect_signal("button::press", wp.on_button_press)

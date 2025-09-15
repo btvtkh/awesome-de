@@ -233,7 +233,7 @@ local function create_player_widget(self, name, player)
 
 			position_label:set_label(us_to_hms(position))
 
-			if not timeline_slider:get_is_dragging() then
+			if not timeline_slider:is_dragging() then
 				timeline_slider:set_value(position/length*100)
 			end
 
@@ -265,7 +265,7 @@ local function create_player_widget(self, name, player)
 		position_label:set_label(us_to_hms(position))
 		length_label:set_label(us_to_hms(length))
 
-		if not timeline_slider:get_is_dragging() then
+		if not timeline_slider:is_dragging() then
 			timeline_slider:set_value(position/length*100)
 		end
 
@@ -294,7 +294,7 @@ local function create_player_widget(self, name, player)
 		position_label:set_label(us_to_hms(position))
 		length_label:set_label(us_to_hms(length))
 
-		if not timeline_slider:get_is_dragging() then
+		if not timeline_slider:is_dragging() then
 			timeline_slider:set_value(position/length*100)
 		end
 
@@ -306,16 +306,19 @@ local function create_player_widget(self, name, player)
 		end
 	end
 
-	wp.on_timeline_slider_dragging_stopped = function()
-		player:set_position(
-			player:get_metadata():get_track_id(),
-			player:get_metadata():get_length() * timeline_slider:get_value()/100
-		)
+	wp.on_timeline_slider_value = function()
+		if timeline_slider:is_dragging() then
+			player:set_position(
+				player:get_metadata():get_track_id(),
+				player:get_metadata():get_length() * timeline_slider:get_value()/100
+			)
+		end
 	end
 
 	previous_button:connect_signal("property::fg", wp.on_previous_button_fg)
 	play_button:connect_signal("property::fg", wp.on_play_button_fg)
 	next_button:connect_signal("property::fg", wp.on_next_button_fg)
+	timeline_slider:connect_signal("property::value", wp.on_timeline_slider_value)
 
 	player:connect_signal("property::metadata", wp.on_metadata)
 	player:connect_signal("property::playback-status", wp.on_playback_status)
@@ -358,7 +361,6 @@ local function create_player_widget(self, name, player)
 		end)
 	}
 
-	timeline_slider:connect_signal("dragging-stopped", wp.on_timeline_slider_dragging_stopped)
 
 	if self.visible then
 		if player:get_playback_status() == Media.PlaybackStatus.PLAYING then

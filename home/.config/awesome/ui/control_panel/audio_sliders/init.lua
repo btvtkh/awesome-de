@@ -136,16 +136,14 @@ return function()
 	end
 
 	wp.on_speaker_slider_value = function(_, value)
+		speaker:set_volume(value)
 		speaker_volume_label:set_label(tostring(math.floor(value*100)) .. "%")
 	end
 
-	wp.on_speaker_slider_dragging_stopped = function()
-		speaker:set_volume(speaker_slider:get_value())
-	end
-
 	wp.on_speaker_volume = function()
-		speaker_slider:set_value(speaker:get_volume())
-		speaker_volume_label:set_label(tostring(math.floor(speaker:get_volume()*100)) .. "%")
+		if not speaker_slider:is_dragging() then
+			speaker_slider:set_value(speaker:get_volume())
+		end
 	end
 
 	wp.on_speaker_mute = function()
@@ -165,16 +163,14 @@ return function()
 	end
 
 	wp.on_microphone_slider_value = function(_, value)
+		microphone:set_volume(value)
 		microphone_volume_label:set_label(tostring(math.floor(value*100)) .. "%")
 	end
 
-	wp.on_microphone_slider_dragging_stopped = function()
-		microphone:set_volume(microphone_slider:get_value())
-	end
-
 	wp.on_microphone_volume = function()
-		microphone_slider:set_value(microphone:get_volume())
-		microphone_volume_label:set_label(tostring(math.floor(microphone:get_volume()*100)) .. "%")
+		if not microphone_slider:is_dragging() then
+			microphone_slider:set_value(microphone:get_volume())
+		end
 	end
 
 	wp.on_microphone_mute = function()
@@ -191,10 +187,8 @@ return function()
 
 	speaker_mute_button:connect_signal("property::fg", wp.on_speaker_mute_fg)
 	speaker_slider:connect_signal("property::value", wp.on_speaker_slider_value)
-	speaker_slider:connect_signal("dragging-stopped", wp.on_speaker_slider_dragging_stopped)
 	microphone_mute_button:connect_signal("property::fg", wp.on_microphone_mute_fg)
 	microphone_slider:connect_signal("property::value", wp.on_microphone_slider_value)
-	microphone_slider:connect_signal("dragging-stopped", wp.on_microphone_slider_dragging_stopped)
 
 	speaker.on_notify:connect(wp.on_speaker_volume, "volume", false)
 	speaker.on_notify:connect(wp.on_speaker_mute, "mute", false)

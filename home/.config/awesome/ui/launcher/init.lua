@@ -21,7 +21,7 @@ local function launch_app(app)
 	if not app then return end
 	local desktop = Gio.DesktopAppInfo.new(app:get_id())
 	local term = desktop:get_string("Terminal") == "true" and
-		Gio.AppInfo.get_default_for_uri_scheme('terminal') or false
+		Gio.AppInfo.get_default_for_uri_scheme('terminal')
 
 	awful.spawn(
 		term and
@@ -96,7 +96,7 @@ local function App_button(app, index, self)
 							label = app:get_name()
 						}
 					},
-					app:get_description() and {
+					{
 						widget = wibox.container.constraint,
 						strategy = "max",
 						height = dpi(25),
