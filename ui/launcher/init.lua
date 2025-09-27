@@ -1,5 +1,7 @@
 local utf8 = require("lua-utf8")
-local Gio = require("lgi").require("Gio")
+local lgi = require("lgi")
+local Gio = lgi.require("Gio")
+local GioUnix = lgi.require("GioUnix")
 local awful = require("awful")
 local wibox = require("wibox")
 local gtable = require("gears.table")
@@ -19,7 +21,7 @@ local launcher = {}
 
 local function launch_app(app)
 	if not app then return end
-	local desktop = Gio.DesktopAppInfo.new(app:get_id())
+	local desktop = GioUnix.DesktopAppInfo.new(app:get_id())
 	local terminal = desktop:get_string("Terminal") == "true" and
 		Gio.AppInfo.get_default_for_uri_scheme('terminal')
 
