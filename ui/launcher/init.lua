@@ -7,7 +7,7 @@ local wibox = require("wibox")
 local gtable = require("gears.table")
 local gfs = require("gears.filesystem")
 local beautiful = require("beautiful")
-local widgets = require("widgets")
+local widget = require("widget")
 local shape = require("lib.shape")
 local user = require("user")
 local dpi = beautiful.xresources.apply_dpi
@@ -72,7 +72,7 @@ end
 
 local function App_button(app, index, self)
 	local ret = wibox.widget {
-		widget = widgets.button,
+		widget = widget.button,
 		bg_hover = beautiful.bg_urg,
 		bg_active = beautiful.bg_alt,
 		fg_active = beautiful.fg_alt,
@@ -92,7 +92,7 @@ local function App_button(app, index, self)
 						strategy = "max",
 						height = dpi(25),
 						{
-							widget = widgets.label,
+							widget = widget.label,
 							font_weight = "bold",
 							font_size = 13,
 							label = app:get_name()
@@ -103,7 +103,7 @@ local function App_button(app, index, self)
 						strategy = "max",
 						height = dpi(25),
 						{
-							widget = widgets.label,
+							widget = widget.label,
 							font_size = 9,
 							alpha = 70,
 							label = app:get_description()
@@ -151,7 +151,7 @@ function launcher:update_entries()
 			end
 		else
 			entries_layout:add({
-				widget = widgets.label,
+				widget = widget.label,
 				forced_height = dpi(60) * wp.rows + dpi(3) * (wp.rows - 1),
 				align = "center",
 				font_size = 17,
@@ -299,7 +299,7 @@ local function new()
 										height = dpi(25),
 										{
 											id = "search-input",
-											widget = widgets.input,
+											widget = widget.input,
 											placeholder = "Search...",
 											font_size = 12
 										}

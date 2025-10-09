@@ -1,7 +1,7 @@
 local awful = require("awful")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
-local widgets = require("widgets")
+local widget = require("widget")
 local shape = require("lib.shape")
 local markup = require("lib.string").markup
 local capitalize = require("lib.string").capitalize
@@ -9,7 +9,7 @@ local dpi = beautiful.xresources.apply_dpi
 
 return function()
 	local ret = wibox.widget {
-		widget = widgets.button,
+		widget = widget.button,
 		forced_width = dpi(35),
 		bg_normal = beautiful.bg_alt,
 		bg_hover = beautiful.bg_urg,

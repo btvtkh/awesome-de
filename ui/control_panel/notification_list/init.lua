@@ -3,7 +3,7 @@ local wibox = require("wibox")
 local naughty = require("naughty")
 local beautiful = require("beautiful")
 local gtable = require("gears.table")
-local widgets = require("widgets")
+local widget = require("widget")
 local shape = require("lib.shape")
 local icons = beautiful.icons
 local ncr = naughty.notification_closed_reason
@@ -27,7 +27,7 @@ local function create_actions_widget(n)
 	local main_layout = actions_widget:get_children_by_id("buttons-layout")[1]
 	for _, action in ipairs(n.actions) do
 		main_layout:add({
-			widget = widgets.button,
+			widget = widget.button,
 			buttons = {
 				awful.button({}, 1, nil, function()
 					action:invoke()
@@ -48,7 +48,7 @@ local function create_actions_widget(n)
 					top = dpi(8), bottom = dpi(8)
 				},
 				{
-					widget = widgets.label,
+					widget = widget.label,
 					halign = "center",
 					valign = "center",
 					font_size = 11,
@@ -89,7 +89,7 @@ local function create_notification_widget(n)
 									width = dpi(150),
 									height = dpi(25),
 									{
-										widget = widgets.label,
+										widget = widget.label,
 										fg = n.urgency == "critical" and beautiful.red or beautiful.fg,
 										font_weight = "bold",
 										font_size = 11,
@@ -101,14 +101,14 @@ local function create_notification_widget(n)
 									layout = wibox.layout.fixed.horizontal,
 									spacing = dpi(5),
 									{
-										widget = widgets.label,
+										widget = widget.label,
 										fg = beautiful.fg_alt,
 										font_size = 9,
 										label = os.date("%H:%M")
 									},
 									{
 										id = "close-button",
-										widget = widgets.button,
+										widget = widget.button,
 										forced_width = dpi(25),
 										forced_height = dpi(25),
 										bg_hover = beautiful.red,
@@ -123,7 +123,7 @@ local function create_notification_widget(n)
 											valign = "center",
 											{
 												id = "close-icon",
-												widget = widgets.icon,
+												widget = widget.icon,
 												size = dpi(15),
 												icon = icons.cross
 											}
@@ -164,7 +164,7 @@ local function create_notification_widget(n)
 										strategy = "max",
 										height = dpi(25),
 										{
-											widget = widgets.label,
+											widget = widget.label,
 											font_weight = "bold",
 											font_size = 13,
 											label = n.title,
@@ -175,7 +175,7 @@ local function create_notification_widget(n)
 										strategy = "max",
 										height = dpi(70),
 										{
-											widget = widgets.label,
+											widget = widget.label,
 											font_size = 10,
 											label = n.text or n.massage,
 										}
@@ -225,7 +225,7 @@ function notification_list:clear_notifications()
 
 	notifs_layout:reset()
 	notifs_layout:add({
-		widget = widgets.label,
+		widget = widget.label,
 		forced_height = dpi(560),
 		fg = beautiful.fg_alt,
 		align = "center",
@@ -279,7 +279,7 @@ return function()
 						margins = { left = dpi(7) },
 						{
 							id = "title-label",
-							widget = widgets.label,
+							widget = widget.label,
 							align = "center",
 							font_weight = "bold",
 							font_size = 13,
@@ -300,7 +300,7 @@ return function()
 						},
 						{
 							id = "dnd-button",
-							widget = widgets.button,
+							widget = widget.button,
 							forced_width = dpi(35),
 							forced_height = dpi(35),
 							shape = shape.rrect(dpi(8)),
@@ -315,7 +315,7 @@ return function()
 								valign = "center",
 								{
 									id = "dnd-icon",
-									widget = widgets.icon,
+									widget = widget.icon,
 									size = dpi(18),
 									icon = icons.bell
 								}
@@ -323,7 +323,7 @@ return function()
 						},
 						{
 							id = "clear-button",
-							widget = widgets.button,
+							widget = widget.button,
 							forced_width = dpi(35),
 							forced_height = dpi(35),
 							shape = shape.rrect(dpi(8)),
@@ -338,7 +338,7 @@ return function()
 								valign = "center",
 								{
 									id = "clear-icon",
-									widget = widgets.icon,
+									widget = widget.icon,
 									size = dpi(18),
 									icon = icons.trash
 								}
@@ -396,7 +396,7 @@ return function()
 
 		if #notifs_layout.children == 0 then
 			notifs_layout:add({
-				widget = widgets.label,
+				widget = widget.label,
 				forced_height = dpi(560),
 				fg = beautiful.fg_alt,
 				align = "center",
@@ -431,7 +431,7 @@ return function()
 	clear_icon:set_color(clear_button:get_fg_normal())
 
 	notifs_layout:add({
-		widget = widgets.label,
+		widget = widget.label,
 		forced_height = dpi(560),
 		fg = beautiful.fg_alt,
 		align = "center",

@@ -1,7 +1,7 @@
 local awful = require("awful")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
-local widgets = require("widgets")
+local widget = require("widget")
 local shape = require("lib.shape")
 local icons = beautiful.icons
 local dpi = beautiful.xresources.apply_dpi
@@ -9,7 +9,7 @@ local Launcher = require("ui.launcher")
 
 return function()
 	local ret = wibox.widget {
-		widget = widgets.button,
+		widget = widget.button,
 		buttons = {
 			awful.button({}, 1, nil, function()
 				Launcher.get_default():toggle()
@@ -27,7 +27,7 @@ return function()
 			valign = "center",
 			{
 				id = "icon",
-				widget = widgets.icon,
+				widget = widget.icon,
 				size = dpi(18),
 				icon = icons.search
 			}

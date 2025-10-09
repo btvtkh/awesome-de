@@ -2,7 +2,7 @@ local AstalWp = require("lgi").require("AstalWp")
 local awful = require("awful")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
-local widgets = require("widgets")
+local widget = require("widget")
 local shape = require("lib.shape")
 local icons = beautiful.icons
 local dpi = beautiful.xresources.apply_dpi
@@ -28,7 +28,7 @@ return function()
 					fill_space = true,
 					{
 						id = "speaker-mute-button",
-						widget = widgets.button,
+						widget = widget.button,
 						forced_width = dpi(40),
 						forced_height = dpi(40),
 						shape = shape.rrect(dpi(8)),
@@ -40,14 +40,14 @@ return function()
 							valign = "center",
 							{
 								id = "speaker-mute-icon",
-								widget = widgets.icon,
+								widget = widget.icon,
 								size = dpi(18)
 							}
 						}
 					},
 					{
 						id = "speaker-slider",
-						widget = widgets.scale,
+						widget = widget.scale,
 						min = 0,
 						max = 1,
 						forced_width = dpi(330),
@@ -65,7 +65,7 @@ return function()
 					},
 					{
 						id = "speaker-volume-label",
-						widget = widgets.label,
+						widget = widget.label,
 						align = "center",
 						font_size = 11
 					}
@@ -75,7 +75,7 @@ return function()
 					fill_space = true,
 					{
 						id = "microphone-mute-button",
-						widget = widgets.button,
+						widget = widget.button,
 						forced_width = dpi(40),
 						forced_height = dpi(40),
 						shape = shape.rrect(dpi(8)),
@@ -87,14 +87,14 @@ return function()
 							valign = "center",
 							{
 								id = "microphone-mute-icon",
-								widget = widgets.icon,
+								widget = widget.icon,
 								size = dpi(18)
 							}
 						}
 					},
 					{
 						id = "microphone-slider",
-						widget = widgets.scale,
+						widget = widget.scale,
 						min = 0,
 						max = 1,
 						forced_width = dpi(330),
@@ -112,7 +112,7 @@ return function()
 					},
 					{
 						id = "microphone-volume-label",
-						widget = widgets.label,
+						widget = widget.label,
 						align = "center",
 						font_size = 11
 					}

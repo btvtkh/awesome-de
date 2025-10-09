@@ -3,7 +3,7 @@ local naughty = require("naughty")
 local wibox = require("wibox")
 local gtimer = require("gears.timer")
 local beautiful = require("beautiful")
-local widgets = require("widgets")
+local widget = require("widget")
 local shape = require("lib.shape")
 local ncr = naughty.notification_closed_reason
 local icons = beautiful.icons
@@ -40,7 +40,7 @@ local function create_actions_widget(n)
 	local main_layout = actions_widget:get_children_by_id("buttons-layout")[1]
 	for _, action in ipairs(n.actions) do
 		main_layout:add({
-			widget = widgets.button,
+			widget = widget.button,
 			buttons = {
 				awful.button({}, 1, nil, function()
 					action:invoke()
@@ -61,7 +61,7 @@ local function create_actions_widget(n)
 					top = dpi(8), bottom = dpi(8)
 				},
 				{
-					widget = widgets.label,
+					widget = widget.label,
 					halign = "center",
 					valign = "center",
 					font_size = 11,
@@ -112,7 +112,7 @@ local function create_notification_popup(self, n)
 									width = dpi(150),
 									height = dpi(25),
 									{
-										widget = widgets.label,
+										widget = widget.label,
 										fg = n.urgency == "critical" and beautiful.red or beautiful.fg,
 										font_weight = "bold",
 										font_size = 11,
@@ -124,14 +124,14 @@ local function create_notification_popup(self, n)
 									layout = wibox.layout.fixed.horizontal,
 									spacing = dpi(5),
 									{
-										widget = widgets.label,
+										widget = widget.label,
 										fg = beautiful.fg_alt,
 										font_size = 9,
 										label = os.date("%H:%M")
 									},
 									{
 										id = "close-button",
-										widget = widgets.button,
+										widget = widget.button,
 										forced_width = dpi(25),
 										forced_height = dpi(25),
 										bg_hover = beautiful.red,
@@ -146,7 +146,7 @@ local function create_notification_popup(self, n)
 											valign = "center",
 											{
 												id = "close-icon",
-												widget = widgets.icon,
+												widget = widget.icon,
 												size = dpi(15),
 												icon = icons.cross
 											}
@@ -187,7 +187,7 @@ local function create_notification_popup(self, n)
 										strategy = "max",
 										height = dpi(25),
 										{
-											widget = widgets.label,
+											widget = widget.label,
 											font_weight = "bold",
 											font_size = 13,
 											label = n.title,
@@ -198,7 +198,7 @@ local function create_notification_popup(self, n)
 										strategy = "max",
 										height = dpi(70),
 										{
-											widget = widgets.label,
+											widget = widget.label,
 											font_size = 10,
 											label = n.text or n.massage,
 										}

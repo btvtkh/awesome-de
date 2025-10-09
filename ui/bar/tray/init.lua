@@ -2,7 +2,7 @@ local awful = require("awful")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
 local shape = require("lib.shape")
-local widgets = require("widgets")
+local widget = require("widget")
 local dpi = beautiful.xresources.apply_dpi
 local icons = beautiful.icons
 
@@ -20,7 +20,7 @@ return function()
 				spacing = dpi(4),
 				{
 					id = "reveal-button",
-					widget = widgets.button,
+					widget = widget.button,
 					forced_width = dpi(25),
 					bg_normal = beautiful.bg_alt,
 					bg_hover = beautiful.bg_urg,
@@ -33,7 +33,7 @@ return function()
 						valign = "center",
 						{
 							id = "reveal-icon",
-							widget = widgets.icon,
+							widget = widget.icon,
 							size = dpi(18)
 						}
 					}

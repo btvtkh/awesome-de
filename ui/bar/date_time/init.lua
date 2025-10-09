@@ -2,7 +2,7 @@ local awful = require("awful")
 local wibox = require("wibox")
 local gtimer = require("gears.timer")
 local beautiful = require("beautiful")
-local widgets = require("widgets")
+local widget = require("widget")
 local shape = require("lib.shape")
 local dpi = beautiful.xresources.apply_dpi
 local day_info_panel = require("ui.day_info_panel").get_default()
@@ -13,7 +13,7 @@ end
 
 return function()
 	local ret = wibox.widget {
-		widget = widgets.button,
+		widget = widget.button,
 		buttons = {
 			awful.button({}, 1, nil, function()
 				day_info_panel:toggle()
@@ -32,7 +32,7 @@ return function()
 				spacing = dpi(8),
 				{
 					id = "date-label",
-					widget = widgets.label,
+					widget = widget.label,
 					font_size = 11
 				},
 				{
@@ -48,7 +48,7 @@ return function()
 				},
 				{
 					id = "time-label",
-					widget = widgets.label,
+					widget = widget.label,
 					font_size = 11
 				}
 			}

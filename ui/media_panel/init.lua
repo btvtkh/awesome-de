@@ -3,7 +3,7 @@ local wibox = require("wibox")
 local gtimer = require("gears.timer")
 local gtable = require("gears.table")
 local beautiful = require("beautiful")
-local widgets = require("widgets")
+local widget = require("widget")
 local shape = require("lib.shape")
 local dpi = beautiful.xresources.apply_dpi
 local icons = beautiful.icons
@@ -66,7 +66,7 @@ local function create_player_widget(self, name, player)
 								layout = wibox.layout.fixed.horizontal,
 								{
 									id = "title-label",
-									widget = widgets.label,
+									widget = widget.label,
 									forced_width = dpi(220),
 									forced_height = dpi(25),
 									font_size = 12
@@ -76,7 +76,7 @@ local function create_player_widget(self, name, player)
 								layout = wibox.layout.fixed.horizontal,
 								{
 									id = "artist-label",
-									widget = widgets.label,
+									widget = widget.label,
 									forced_width = dpi(200),
 									forced_height = dpi(20),
 									font_size = 10,
@@ -97,7 +97,7 @@ local function create_player_widget(self, name, player)
 										fg = beautiful.fg_alt,
 										{
 											id = "position-label",
-											widget = widgets.label,
+											widget = widget.label,
 											font_size = 9
 										}
 									}
@@ -110,7 +110,7 @@ local function create_player_widget(self, name, player)
 										spacing = dpi(5),
 										{
 											id = "previous-button",
-											widget = widgets.button,
+											widget = widget.button,
 											forced_width = dpi(25),
 											forced_height = dpi(25),
 											shape = shape.rrect(dpi(6)),
@@ -122,7 +122,7 @@ local function create_player_widget(self, name, player)
 												valign = "center",
 												{
 													id = "previous-icon",
-													widget = widgets.icon,
+													widget = widget.icon,
 													size = dpi(18),
 													icon = icons.skip_back
 												}
@@ -130,7 +130,7 @@ local function create_player_widget(self, name, player)
 										},
 										{
 											id = "play-button",
-											widget = widgets.button,
+											widget = widget.button,
 											forced_width = dpi(25),
 											forced_height = dpi(25),
 											shape = shape.rrect(dpi(6)),
@@ -142,14 +142,14 @@ local function create_player_widget(self, name, player)
 												valign = "center",
 												{
 													id = "play-icon",
-													widget = widgets.icon,
+													widget = widget.icon,
 													size = dpi(18)
 												}
 											}
 										},
 										{
 											id = "next-button",
-											widget = widgets.button,
+											widget = widget.button,
 											forced_width = dpi(25),
 											forced_height = dpi(25),
 											shape = shape.rrect(dpi(6)),
@@ -161,7 +161,7 @@ local function create_player_widget(self, name, player)
 												valign = "center",
 												{
 													id = "next-icon",
-													widget = widgets.icon,
+													widget = widget.icon,
 													size = dpi(18),
 													icon = icons.skip_forward
 												}
@@ -177,7 +177,7 @@ local function create_player_widget(self, name, player)
 										fg = beautiful.fg_alt,
 										{
 											id = "length-label",
-											widget = widgets.label,
+											widget = widget.label,
 											font_size = 9
 										}
 									}
@@ -185,7 +185,7 @@ local function create_player_widget(self, name, player)
 							},
 							{
 								id = "timeline-slider",
-								widget = widgets.scale,
+								widget = widget.scale,
 								forced_height = dpi(20),
 								trough_margins = dpi(9),
 								trough_color = beautiful.bg_urg,
@@ -450,7 +450,7 @@ local function new()
 						layout = wibox.layout.stack,
 						top_only = true,
 						{
-							widget = widgets.label,
+							widget = widget.label,
 							forced_width = dpi(300),
 							forced_height = dpi(100),
 							fg = beautiful.fg_alt,
@@ -473,7 +473,7 @@ local function new()
 								spacing = dpi(3),
 								{
 									id = "previous-player-button",
-									widget = widgets.button,
+									widget = widget.button,
 									forced_width = dpi(20),
 									forced_height = dpi(20),
 									shape = shape.rrect(6),
@@ -489,7 +489,7 @@ local function new()
 										valign = "center",
 										{
 											id = "previous-player-icon",
-											widget = widgets.icon,
+											widget = widget.icon,
 											size = dpi(14),
 											icon = icons.chevron_left
 										}
@@ -497,7 +497,7 @@ local function new()
 								},
 								{
 									id = "next-player-button",
-									widget = widgets.button,
+									widget = widget.button,
 									forced_width = dpi(20),
 									forced_height = dpi(20),
 									shape = shape.rrect(6),
@@ -513,7 +513,7 @@ local function new()
 										valign = "center",
 										{
 											id = "next-player-icon",
-											widget = widgets.icon,
+											widget = widget.icon,
 											size = dpi(14),
 											icon = icons.chevron_right
 										}
@@ -571,7 +571,7 @@ local function new()
 					players_switcher:set_visible(false)
 				elseif #players_layout.children == 0 then
 					players_layout:add({
-						widget = widgets.label,
+						widget = widget.label,
 						forced_width = dpi(300),
 						forced_height = dpi(100),
 						fg = beautiful.fg_alt,

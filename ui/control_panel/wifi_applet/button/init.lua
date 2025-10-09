@@ -1,7 +1,7 @@
 local awful = require("awful")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
-local widgets = require("widgets")
+local widget = require("widget")
 local shape = require("lib.shape")
 local icons = beautiful.icons
 local dpi = beautiful.xresources.apply_dpi
@@ -21,7 +21,7 @@ return function()
 			fill_space = true,
 			{
 				id = "toggle-button",
-				widget = widgets.button,
+				widget = widget.button,
 				forced_width = dpi(180),
 				bg_hover = beautiful.bg_urg,
 				fg_normal = beautiful.fg,
@@ -41,7 +41,7 @@ return function()
 								valign = "center",
 								{
 									id = "toggle-icon",
-									widget = widgets.icon,
+									widget = widget.icon,
 									size = dpi(18),
 									icon = icons.wifi
 								}
@@ -52,14 +52,14 @@ return function()
 								{
 									layout = wibox.layout.fixed.vertical,
 									{
-										widget = widgets.label,
+										widget = widget.label,
 										font_weight = "bold",
 										font_size = 12,
 										label = "Wifi"
 									},
 									{
 										id = "state-label",
-										widget = widgets.label,
+										widget = widget.label,
 										font_size = 9,
 										alpha = 70
 									}
@@ -81,7 +81,7 @@ return function()
 			},
 			{
 				id = "reveal-button",
-				widget = widgets.button,
+				widget = widget.button,
 				bg_hover = beautiful.bg_urg,
 				fg_normal = beautiful.fg,
 				fg_hover = beautiful.fg,
@@ -92,7 +92,7 @@ return function()
 					valign = "center",
 					{
 						id = "reveal-icon",
-						widget = widgets.icon,
+						widget = widget.icon,
 						size = dpi(18),
 						icon = icons.chevron_right
 					}

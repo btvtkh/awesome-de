@@ -1,6 +1,6 @@
 local wibox = require("wibox")
 local beautiful = require("beautiful")
-local widgets = require("widgets")
+local widget = require("widget")
 local shape = require("lib.shape")
 local icons = beautiful.icons
 local dpi = beautiful.xresources.apply_dpi
@@ -18,7 +18,7 @@ return function()
 				layout = wibox.layout.align.vertical,
 				{
 					id = "powermenu-button",
-					widget = widgets.button,
+					widget = widget.button,
 					forced_width = dpi(37),
 					forced_height = dpi(37),
 					fg_normal = beautiful.red,
@@ -33,7 +33,7 @@ return function()
 						valign = "center",
 						{
 							id = "icon",
-							widget = widgets.icon,
+							widget = widget.icon,
 							size = dpi(18),
 							icon = icons.power
 						}
@@ -53,7 +53,7 @@ return function()
 					},
 					{
 						id = "wallpaper-button",
-						widget = widgets.button,
+						widget = widget.button,
 						forced_width = dpi(37),
 						forced_height = dpi(37),
 						fg_active = beautiful.fg_alt,
@@ -65,7 +65,7 @@ return function()
 							valign = "center",
 							{
 								id = "icon",
-								widget = widgets.icon,
+								widget = widget.icon,
 								size = dpi(18),
 								icon = icons.image
 							}
@@ -73,7 +73,7 @@ return function()
 					},
 					{
 						id = "home-button",
-						widget = widgets.button,
+						widget = widget.button,
 						forced_width = dpi(37),
 						forced_height = dpi(37),
 						fg_active = beautiful.fg_alt,
@@ -85,7 +85,7 @@ return function()
 							valign = "center",
 							{
 								id = "icon",
-								widget = widgets.icon,
+								widget = widget.icon,
 								size = dpi(18),
 								icon = icons.home
 							}

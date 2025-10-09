@@ -1,7 +1,7 @@
 local awful = require("awful")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
-local widgets = require("widgets")
+local widget = require("widget")
 local shape = require("lib.shape")
 local icons = beautiful.icons
 local dpi = beautiful.xresources.apply_dpi
@@ -21,7 +21,7 @@ return function(c)
 	local wp = ret._private
 
 	wp.close_button = wibox.widget {
-		widget = widgets.button,
+		widget = widget.button,
 		bg_normal = c.active and beautiful.red or beautiful.bg_urg,
 		bg_hover = c.active and beautiful.red or beautiful.bg_urg,
 		bg_active = beautiful.fg_alt,
@@ -34,7 +34,7 @@ return function(c)
 			margins = dpi(3),
 			{
 				id = "icon",
-				widget = widgets.icon,
+				widget = widget.icon,
 				color = beautiful.bg,
 				icon = icons.cross
 			}
@@ -42,7 +42,7 @@ return function(c)
 	}
 
 	wp.max_button = wibox.widget {
-		widget = widgets.button,
+		widget = widget.button,
 		bg_normal = c.active and beautiful.yellow or beautiful.bg_urg,
 		bg_hover = c.active and beautiful.yellow or beautiful.bg_urg,
 		bg_active = beautiful.fg_alt,
@@ -55,7 +55,7 @@ return function(c)
 			margins = dpi(3),
 			{
 				id = "icon",
-				widget = widgets.icon,
+				widget = widget.icon,
 				color = beautiful.bg,
 				icon = c.maximized and icons.minimize or icons.maximize
 			}
@@ -63,7 +63,7 @@ return function(c)
 	}
 
 	wp.min_button = wibox.widget {
-		widget = widgets.button,
+		widget = widget.button,
 		bg_normal = c.active and beautiful.green or beautiful.bg_urg,
 		bg_hover = c.active and beautiful.green or beautiful.bg_urg,
 		bg_active = beautiful.fg_alt,
@@ -76,7 +76,7 @@ return function(c)
 			margins = dpi(3),
 			{
 				id = "icon",
-				widget = widgets.icon,
+				widget = widget.icon,
 				color = beautiful.bg,
 				icon = icons.dash
 			}

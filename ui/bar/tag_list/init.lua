@@ -1,7 +1,7 @@
 local awful = require("awful")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
-local widgets = require("widgets")
+local widget = require("widget")
 local shape = require("lib.shape")
 local dpi = beautiful.xresources.apply_dpi
 local capi = { client = client }
@@ -50,12 +50,12 @@ return function(s)
 					},
 					widget_template = {
 						id = "t-button",
-						widget = widgets.button,
+						widget = widget.button,
 						forced_width = dpi(25),
 						shape = shape.rrect(dpi(6)),
 						{
 							id = "t-label",
-							widget = widgets.label,
+							widget = widget.label,
 							halign = "center",
 							valign = "center",
 							font_size = 11

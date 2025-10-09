@@ -3,8 +3,8 @@ local wibox = require("wibox")
 local beautiful = require("beautiful")
 local gtable = require("gears.table")
 local shape = require("lib.shape")
-local wlabel = require("widgets.label")
-local wicon = require("widgets.icon")
+local wlabel = require("widget.label")
+local wicon = require("widget.icon")
 local icons = beautiful.icons
 local capi = { mouse = mouse }
 local dpi = beautiful.xresources.apply_dpi

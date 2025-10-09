@@ -2,7 +2,7 @@ local awful = require("awful")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
 local gtable = require("gears.table")
-local widgets = require("widgets")
+local widget = require("widget")
 local shape = require("lib.shape")
 local icons = beautiful.icons
 local dpi = beautiful.xresources.apply_dpi
@@ -16,7 +16,7 @@ local function create_ap_widget(self, ap)
 	local is_active = ap:get_path() == wireless:get_active_access_point_path()
 
 	local ret = wibox.widget {
-		widget = widgets.button,
+		widget = widget.button,
 		forced_height = dpi(55),
 		shape = shape.rrect(dpi(13)),
 		bg_hover = beautiful.bg_urg,
@@ -37,13 +37,13 @@ local function create_ap_widget(self, ap)
 						layout = wibox.layout.fixed.vertical,
 							{
 								id = "name-label",
-								widget = widgets.label,
+								widget = widget.label,
 								valign = "center",
 								font_size = 12
 							},
 							{
 								id = "description-label",
-								widget = widgets.label,
+								widget = widget.label,
 								valign = "center",
 								font_size = 9,
 								alpha = 70
@@ -54,7 +54,7 @@ local function create_ap_widget(self, ap)
 				nil,
 				{
 					id = "strength-label",
-					widget = widgets.label,
+					widget = widget.label,
 					align = "center",
 					font_size = 12
 				}
@@ -240,7 +240,7 @@ return function()
 						layout = wibox.layout.align.horizontal,
 						{
 							id = "bottombar-close-button",
-							widget = widgets.button,
+							widget = widget.button,
 							forced_width = dpi(35),
 							forced_height = dpi(35),
 							shape = shape.rrect(dpi(9)),
@@ -252,7 +252,7 @@ return function()
 								valign = "center",
 								{
 									id = "bottombar-close-icon",
-									widget = widgets.icon,
+									widget = widget.icon,
 									size = dpi(18),
 									icon = icons.chevron_left
 								}
@@ -272,7 +272,7 @@ return function()
 							},
 							{
 								id = "bottombar-refresh-button",
-								widget = widgets.button,
+								widget = widget.button,
 								forced_width = dpi(35),
 								forced_height = dpi(35),
 								shape = shape.rrect(dpi(9)),
@@ -284,7 +284,7 @@ return function()
 									valign = "center",
 									{
 										id = "bottombar-refresh-icon",
-										widget = widgets.icon,
+										widget = widget.icon,
 										size = dpi(18),
 										icon = icons.refresh
 									}
@@ -302,7 +302,7 @@ return function()
 									halign = "center",
 									{
 										id = "bottombar-toggle-switch",
-										widget = widgets.switch,
+										widget = widget.switch,
 										trough_color = beautiful.fg_alt,
 										slider_color = beautiful.bg_alt,
 										slider_margins = dpi(2),
@@ -334,7 +334,7 @@ return function()
 				spacing = dpi(10),
 				{
 					id = "close-button",
-					widget = widgets.button,
+					widget = widget.button,
 					forced_width = dpi(30),
 					forced_height = dpi(30),
 					shape = shape.rrect(dpi(8)),
@@ -347,7 +347,7 @@ return function()
 						valign = "center",
 						{
 							id = "close-icon",
-							widget = widgets.icon,
+							widget = widget.icon,
 							size = dpi(18),
 							icon = icons.chevron_left
 						}
@@ -355,7 +355,7 @@ return function()
 				},
 				{
 					id = "title-label",
-					widget = widgets.label,
+					widget = widget.label,
 					font_weight = "bold",
 					font_size = 13
 				}
@@ -387,7 +387,7 @@ return function()
 									height = dpi(25),
 									{
 										id = "password-input",
-										widget = widgets.input,
+										widget = widget.input,
 										placeholder = "Password",
 										obscure_char = "●",
 										obscure = true,
@@ -402,7 +402,7 @@ return function()
 									valign = "center",
 									{
 										id = "obscure-icon",
-										widget = widgets.icon,
+										widget = widget.icon,
 										size = dpi(18)
 									}
 								}
@@ -420,7 +420,7 @@ return function()
 							{
 								layout = wibox.layout.align.horizontal,
 								{
-									widget = widgets.label,
+									widget = widget.label,
 									align = "center",
 									font_size = 12,
 									label = "Auto connect"
@@ -428,7 +428,7 @@ return function()
 								nil,
 								{
 									id = "auto-connect-check",
-									widget = widgets.check,
+									widget = widget.check,
 									forced_height = dpi(20),
 									check_margins = dpi(6),
 									check_shape = shape.rbar(),
@@ -442,7 +442,7 @@ return function()
 			},
 			{
 				id = "connect-button",
-				widget = widgets.button,
+				widget = widget.button,
 				forced_height = dpi(45),
 				shape = shape.rrect(dpi(13)),
 				bg_normal = beautiful.bg_alt,
@@ -450,7 +450,7 @@ return function()
 				bg_active = beautiful.bg_alt,
 				fg_active = beautiful.fg_alt,
 				{
-					widget = widgets.label,
+					widget = widget.label,
 					align = "center",
 					font_size = 12
 				}
@@ -491,7 +491,7 @@ return function()
 				halign = "center",
 				valign = "center",
 				{
-					widget = widgets.icon,
+					widget = widget.icon,
 					size = dpi(25),
 					color = beautiful.fg_alt,
 					icon = icons.loader
@@ -501,7 +501,7 @@ return function()
 			wp.ap_widgets = {}
 			aps_layout:reset()
 			aps_layout:add({
-				widget = widgets.label,
+				widget = widget.label,
 				forced_height = dpi(400),
 				fg = beautiful.fg_alt,
 				align = "center",

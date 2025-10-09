@@ -2,7 +2,7 @@ local awful = require("awful")
 local wibox = require("wibox")
 local gtable = require("gears.table")
 local beautiful = require("beautiful")
-local widgets = require("widgets")
+local widget = require("widget")
 local shape = require("lib.shape")
 local icons = beautiful.icons
 local dpi = beautiful.xresources.apply_dpi
@@ -24,7 +24,7 @@ local function wday_widget(index)
 		widget = wibox.container.margin,
 		margins = dpi(10),
 		{
-			widget = widgets.label,
+			widget = widget.label,
 			forced_width = dpi(25),
 			align = "center",
 			fg = index >= 6 and beautiful.red or beautiful.fg,
@@ -47,7 +47,7 @@ local function day_widget(day, is_current, is_another_month)
 			widget = wibox.container.margin,
 			margins = dpi(10),
 			{
-				widget = widgets.label,
+				widget = widget.label,
 				align = "center",
 				font_size = 12,
 				label = day
@@ -118,7 +118,7 @@ return function()
 					layout = wibox.layout.align.horizontal,
 					{
 						id = "year-button",
-						widget = widgets.button,
+						widget = widget.button,
 						forced_height = dpi(30),
 						shape = shape.rrect(dpi(6)),
 						bg_hover = beautiful.bg_urg,
@@ -128,7 +128,7 @@ return function()
 							margins = { left = dpi(8), right = dpi(8) },
 							{
 								id = "year-label",
-								widget = widgets.label,
+								widget = widget.label,
 								align = "center",
 								font_weight = "bold",
 								font_size = 12
@@ -141,7 +141,7 @@ return function()
 						spacing = dpi(5),
 						{
 							id = "dec-button",
-							widget = widgets.button,
+							widget = widget.button,
 							forced_width = dpi(30),
 							forced_height = dpi(30),
 							shape = shape.rrect(dpi(6)),
@@ -152,7 +152,7 @@ return function()
 								halign = "center",
 								valign = "center",
 								{
-									widget = widgets.icon,
+									widget = widget.icon,
 									size = dpi(18),
 									icon = icons.chevron_left
 								}
@@ -160,7 +160,7 @@ return function()
 						},
 						{
 							id = "inc-button",
-							widget = widgets.button,
+							widget = widget.button,
 							forced_width = dpi(30),
 							forced_height = dpi(30),
 							shape = shape.rrect(dpi(6)),
@@ -171,7 +171,7 @@ return function()
 								halign = "center",
 								valign = "center",
 								{
-									widget = widgets.icon,
+									widget = widget.icon,
 									size = dpi(18),
 									icon = icons.chevron_right
 								}

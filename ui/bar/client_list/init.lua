@@ -1,7 +1,7 @@
 local awful = require("awful")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
-local widgets = require("widgets")
+local widget = require("widget")
 local shape = require("lib.shape")
 local dpi = beautiful.xresources.apply_dpi
 local menu = require("ui.menu").get_default()
@@ -25,7 +25,7 @@ return function(s)
 		},
 		widget_template = {
 			id = "c-button",
-			widget = widgets.button,
+			widget = widget.button,
 			bg_normal = beautiful.bg_alt,
 			bg_hover = beautiful.bg_urg,
 			bg_active = beautiful.bg_alt,
@@ -41,7 +41,7 @@ return function(s)
 						width = dpi(150),
 						{
 							id = "c-label",
-							widget = widgets.label,
+							widget = widget.label,
 							align = "center",
 							font_size = 11
 						}

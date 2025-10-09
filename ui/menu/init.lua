@@ -1,9 +1,8 @@
 local Gio = require("lgi").require("Gio")
 local awful = require("awful")
-local beautiful = require("beautiful")
 local gtable = require("gears.table")
 local gfs = require("gears.filesystem")
-local widgets = require("widgets")
+local widget = require("widget")
 local user = require("user")
 local dump_table = require("lib.file").dump
 local capi = { awesome = awesome, screen = screen, client = client }
@@ -13,7 +12,7 @@ local Powermenu = require("ui.powermenu")
 local menu = {}
 
 local function create_desktop_menu()
-	return widgets.menu {
+	return widget.menu {
 		items = {
 			{
 				label = "Awesome",
@@ -130,7 +129,7 @@ local function create_client_menu(c)
 		})
 	end
 
-	return widgets.menu {
+	return widget.menu {
 		items = {
 			{
 				label = "Move to tag",

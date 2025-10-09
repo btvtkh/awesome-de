@@ -1,7 +1,7 @@
 local gobject = require("gears.object")
 local gtable = require("gears.table")
-local widgets = require("widgets")
 local json = require("lib.json")
+local remote_wtach = require("lib.remote_watch")
 local user = require("user")
 
 local weather = {}
@@ -24,7 +24,7 @@ function weather:set_remote_watch()
 		wp.imperial_units and "&temperature_unit=fahrenheit" or ""
 	)
 
-	wp.remote_watch = widgets.remote(cmd, wp.interval, wp.output_file, function(out)
+	wp.remote_watch = remote_wtach(cmd, wp.interval, wp.output_file, function(out)
 		local data = out ~= "" and json.decode(out)
 		self:emit_signal("data-received", data)
 	end)

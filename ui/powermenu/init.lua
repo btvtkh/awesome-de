@@ -1,7 +1,7 @@
 local awful = require("awful")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
-local widgets = require("widgets")
+local widget = require("widget")
 local shape = require("lib.shape")
 local gtable = require("gears.table")
 local icons = beautiful.icons
@@ -45,7 +45,7 @@ end
 
 local function Powermenu_button(element, index, self)
 	local ret = wibox.widget {
-		widget = widgets.button,
+		widget = widget.button,
 		forced_width = dpi(120),
 		forced_height = dpi(120),
 		shape = shape.rrect(dpi(20)),
@@ -55,7 +55,7 @@ local function Powermenu_button(element, index, self)
 			valign = "center",
 			{
 				id = "icon",
-				widget = widgets.icon,
+				widget = widget.icon,
 				size = dpi(32),
 				icon = element.icon
 			}

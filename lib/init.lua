@@ -3,6 +3,7 @@ return {
 	inspect = require("lib.inspect"),
 	json = require("lib.json"),
 	animation = require("lib.animation"),
+	remote_watch = require("lib.remote_watch"),
 	string = require("lib.string"),
 	table = require("lib.table"),
 	file = require("lib.file"),

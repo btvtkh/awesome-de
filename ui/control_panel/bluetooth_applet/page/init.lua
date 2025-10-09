@@ -1,7 +1,7 @@
 local awful = require("awful")
 local wibox = require("wibox")
 local beautiful = require("beautiful")
-local widgets = require("widgets")
+local widget = require("widget")
 local shape = require("lib.shape")
 local icons = beautiful.icons
 local dpi = beautiful.xresources.apply_dpi
@@ -9,7 +9,7 @@ local Bluetooth = require("service.bluetooth")
 
 local function create_device_widget(path, device)
 	local ret = wibox.widget {
-		widget = widgets.button,
+		widget = widget.button,
 		shape = shape.rrect(dpi(13)),
 		forced_height = dpi(55),
 		bg_hover = beautiful.bg_urg,
@@ -30,13 +30,13 @@ local function create_device_widget(path, device)
 						layout = wibox.layout.fixed.vertical,
 							{
 								id = "name-label",
-								widget = widgets.label,
+								widget = widget.label,
 								valign = "center",
 								font_size = 12
 							},
 							{
 								id = "description-label",
-								widget = widgets.label,
+								widget = widget.label,
 								valign = "center",
 								font_size = 9,
 								alpha = 70
@@ -50,7 +50,7 @@ local function create_device_widget(path, device)
 					width = dpi(130),
 					{
 						id = "percentage-label",
-						widget = widgets.label,
+						widget = widget.label,
 						align = "center",
 						font_size = 12
 					}
@@ -126,7 +126,7 @@ return function()
 						layout = wibox.layout.align.horizontal,
 						{
 							id = "bottombar-close-button",
-							widget = widgets.button,
+							widget = widget.button,
 							forced_width = dpi(35),
 							forced_height = dpi(35),
 							shape = shape.rrect(dpi(9)),
@@ -138,7 +138,7 @@ return function()
 								valign = "center",
 								{
 									id = "bottombar-close-icon",
-									widget = widgets.icon,
+									widget = widget.icon,
 									size = dpi(18),
 									icon = icons.chevron_left
 								}
@@ -158,7 +158,7 @@ return function()
 							},
 							{
 								id = "bottombar-discover-button",
-								widget = widgets.button,
+								widget = widget.button,
 								forced_width = dpi(35),
 								forced_height = dpi(35),
 								shape = shape.rrect(dpi(9)),
@@ -170,7 +170,7 @@ return function()
 									valign = "center",
 									{
 										id = "bottombar-discover-icon",
-										widget = widgets.icon,
+										widget = widget.icon,
 										size = dpi(18),
 										icon = icons.search
 									}
@@ -188,7 +188,7 @@ return function()
 									halign = "center",
 									{
 										id = "bottombar-toggle-switch",
-										widget = widgets.switch,
+										widget = widget.switch,
 										trough_color = beautiful.fg_alt,
 										slider_color = beautiful.bg_alt,
 										slider_margins = dpi(2),
@@ -260,7 +260,7 @@ return function()
 				halign = "center",
 				valign = "center",
 				{
-					widget = widgets.icon,
+					widget = widget.icon,
 					size = dpi(25),
 					color = beautiful.fg_alt,
 					icon = icons.loader
@@ -287,7 +287,7 @@ return function()
 				halign = "center",
 				valign = "center",
 				{
-					widget = widgets.icon,
+					widget = widget.icon,
 					size = dpi(25),
 					color = beautiful.fg_alt,
 					icon = icons.loader
@@ -302,7 +302,7 @@ return function()
 		else
 			devices_layout:reset()
 			devices_layout:add({
-				widget = widgets.label,
+				widget = widget.label,
 				forced_height = dpi(400),
 				fg = beautiful.fg_alt,
 				align = "center",
